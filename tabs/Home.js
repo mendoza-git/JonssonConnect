@@ -6,7 +6,7 @@
  import React, { Component } from 'react';
  import { Image , StyleSheet, Text } from 'react-native';
  import { TabNavigator } from "react-navigation";
- import { Container, Header, Content, Card, CardItem, Thumbnail, Title, Button, Icon, Left, Body, Right, H1, H2, H3 } from 'native-base';
+ import { Container, Header, Content, Card, CardItem, Thumbnail, Input, Item, Title, Button, Icon, Left, Body, Right, H1, H2, H3 } from 'native-base';
 
  export default class CardImageExample extends Component {
    static navigationOptions = {
@@ -21,10 +21,13 @@
    render() {
      return (
        <Container>
-         <Header>
-         </Header>
-         <Content>
-         <Title><Text style={styles.title}>Home</Text></Title>
+       <Header searchBar rounded>
+          <Item><Input placeholder="Search" /></Item>
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+        </Header>
+        <Content>
            <Card>
              <CardItem>
                <Left>

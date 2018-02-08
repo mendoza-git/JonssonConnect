@@ -4,27 +4,34 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { Image } from 'react-native';
+ import { Image, ListView, Text } from 'react-native';
  import { TabNavigator } from "react-navigation";
- import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Title, Button, Icon, Left, Body, Right, H1, H2, H3 } from 'native-base';
+ import { Container, Header, Content, Card, CardItem, Thumbnail, Input, Item, Title, Button, Icon, Left, Body, Right, H1, H2, H3 } from 'native-base';
+ import firebaseDbh from '../App';
+ import * as firebase from 'firebase';
 
  export default class Jobs extends Component {
    static navigationOptions = {
      tabBarLabel: 'Jobs',
      tabBarIcon: ({ tintcolor }) => (
        <Image
-        source={require('../images/briefcaseicon.png')}
+        source={require('../images/briefcaseicon.png')}s
         style={{width: 22, height: 22}}>
        </Image>
      )
    }
+
+
    render() {
      return (
        <Container>
-         <Header>
-         </Header>
+       <Header searchBar rounded>
+          <Item><Input placeholder="Search" /></Item>
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+        </Header>
          <Content>
-           <Title> <H1> Jobs </H1> </Title>
            <Card>
             <CardItem>
               <Left>
@@ -62,8 +69,9 @@
             <Left>
               <Thumbnail source={{uri: 'https://4vector.com/i/free-vector-texas-instruments-0_076601_texas-instruments-0.png'}} />
               <Body>
-                <Text>Javascript Developer</Text>
+                <Text>Javascript Developer </Text>
                 <Text note>Texas Instruments</Text>
+                <Text>adaRef</Text>
               </Body>
             </Left>
             <Right>
@@ -73,6 +81,9 @@
             </Right>
           </CardItem>
         </Card>
+
+
+
 
         </Content>
        </Container>
