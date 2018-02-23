@@ -26,8 +26,7 @@
  var firebaseDbh = firebase.database().ref().child('news');
  var firebaseListNews = firebaseDbh.child('Batman');
 
-
- var AppScreenNavigator = TabNavigator({
+ export const AppScreenNavigator = TabNavigator({
    Home: {screen: Home},
    JobsTab: {screen: Jobs},
    EventsTab: {screen: Events},

@@ -21,10 +21,11 @@
    render() {
      return (
        <Container>
-       <Header searchBar rounded>
+       <Header searchBar rounded style={styles.searchbarColor}>
+       <Thumbnail style={{width: 30, height: 30, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
           <Item><Input placeholder="Search" /></Item>
           <Button transparent>
-            <Text>Search</Text>
+            <Text style={styles.searchButton}>Search</Text>
           </Button>
         </Header>
         <Content>
@@ -99,5 +100,12 @@
   title: {
     color: '#104E8B',
     fontSize: 30
-  }
+  },
+  searchbarColor: {
+    backgroundColor: '#104E8B',
+  },
+  searchButton: {
+    fontSize: 12,
+    color: '#ffffff',
+  },
 });

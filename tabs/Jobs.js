@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { Image, ListView, Text } from 'react-native';
+ import { Image, ListView, Text, StyleSheet } from 'react-native';
  import { TabNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, Input, Item, Title, Button, Icon, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import firebaseDbh from '../App';
@@ -25,10 +25,11 @@
    render() {
      return (
        <Container>
-       <Header searchBar rounded>
+       <Header searchBar rounded style={styles.searchbarColor}>
+       <Thumbnail style={{width: 30, height: 30, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
           <Item><Input placeholder="Search" /></Item>
           <Button transparent>
-            <Text>Search</Text>
+            <Text style={styles.searchButton}>Search</Text>
           </Button>
         </Header>
          <Content>
@@ -71,7 +72,6 @@
               <Body>
                 <Text>Javascript Developer </Text>
                 <Text note>Texas Instruments</Text>
-                <Text>adaRef</Text>
               </Body>
             </Left>
             <Right>
@@ -82,11 +82,17 @@
           </CardItem>
         </Card>
 
-
-
-
         </Content>
        </Container>
      );
    }
  }
+ const styles = StyleSheet.create({
+  searchbarColor: {
+    backgroundColor: '#104E8B',
+  },
+  searchButton: {
+    fontSize: 12,
+    color: '#ffffff',
+  },
+});

@@ -11,6 +11,7 @@
  import firebaseListNews from '../App';
  import * as firebase from 'firebase';
 
+
  export default class Jobs extends Component {
 
    constructor(props) {
@@ -27,7 +28,7 @@
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
           isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson.news),
+          dataSource: ds.cloneWithRows(responseJson.Events),
         }, function() {
           // do something with new state
         });
@@ -57,49 +58,96 @@
        );
      }
      return (
-
-       <View style={{flex: 1, paddingTop: 0}}>
-       <Header searchBar rounded>
+       <Container>
+       <Header searchBar rounded style={styles.searchbarColor}>
+       <Thumbnail style={{width: 30, height: 30, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
           <Item><Input placeholder="Search" /></Item>
           <Button transparent>
-            <Text>Search</Text>
+            <Text style={styles.searchButton}>Search</Text>
           </Button>
         </Header>
+        <Content>
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
+             const {uri} = rowData;
              return (
                <Card>
-                 <CardItem>
-                   <Left>
-                     <Thumbnail source={{uri: '{rowData.articleImage}'}} />
-                     <Body>
-                     <Text style={styles.title} numberOfLines={1}>
-                       {rowData.articleName}
-                     </Text>
-                     </Body>
-                   </Left>
-                   <Right>
-                     <Button bordered>
-                       <Text>View</Text>
-                     </Button>
-                   </Right>
-                 </CardItem>
-               </Card>
+                <CardItem>
+                  <Left>
+                    <Thumbnail source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmfBRR5T0D2xN1IBPDFLC-c36Q04Rq-gc4sO-n7R5nsujLyASp7Q'}} />
+                    <Body>
+                    <Text style={styles.hostStyle}>
+                      {rowData.hostedBy} :
+                    </Text>
+                    <Text style={styles.nameStyle}>
+                      {rowData.eventName}
+                    </Text>
+                    <Text style={styles.eventNameStyle}>
+                      {rowData.eventDate} | {rowData.eventLocation}
+                    </Text>
+                    </Body>
+                  </Left>
+                </CardItem>
+                <CardItem cardBody>
+                  <Image source={{uri: rowData.eventImageURL}} style={{height: 100, width: null, flex: 1}}/>
+                </CardItem>
+                <CardItem>
+                  <Left>
+                    <Button transparent info>
+                    <Text style={styles.buttonStyle}>
+                      Attending
+                    </Text>
+                    </Button>
+                  </Left>
+                  <Body>
+                    <Button transparent primary>
+                    <Text style={styles.buttonStyle}>
+                      Interested
+                    </Text>
+                    </Button>
+                  </Body>
+                  <Right>
+                  <Button transparent success>
+                  <Text style={styles.buttonStyle}>
+                    Details
+                  </Text>
+                  </Button>
+                  </Right>
+                </CardItem>
+              </Card>
              )
            }}
          />
-       </View>
+         </Content>
+       </Container>
      )
    }
  }
 
  const styles = StyleSheet.create({
-  container: {
-    marginTop: 15,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  }
+  hostStyle: {
+    fontWeight: '800',
+    fontSize: 14,
+   },
+   nameStyle: {
+     fontWeight: '600',
+     fontSize: 14,
+    },
+  eventNameStyle: {
+    fontSize: 12,
+  },
+  eventDescriptionStyle: {
+    fontSize: 10,
+  },
+  buttonStyle: {
+    fontSize: 12,
+  },
+  searchbarColor: {
+    backgroundColor: '#104E8B',
+  },
+  searchButton: {
+    fontSize: 12,
+    color: '#ffffff',
+  },
 });
