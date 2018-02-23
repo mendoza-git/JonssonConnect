@@ -6,13 +6,12 @@
  import React, { Component } from 'react';
  import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
  import { TabNavigator } from "react-navigation";
- import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Item, Input, Text, Title, Button, Icon, Left, Body, Right, H1, H2, H3 } from 'native-base';
+ import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import firebaseDbh from '../App';
  import firebaseListNews from '../App';
  import * as firebase from 'firebase';
 
-
- export default class Jobs extends Component {
+ export default class Events extends Component {
 
    constructor(props) {
      super(props);
@@ -49,7 +48,6 @@
    }
 
    render() {
-
      if (this.state.isLoading) {
        return (
          <View style={{flex: 1, paddingTop: 20}}>
@@ -59,12 +57,9 @@
      }
      return (
        <Container>
-       <Header searchBar rounded style={styles.searchbarColor}>
+       <Header searchBar style={styles.searchbarColor}>
        <Thumbnail style={{width: 30, height: 30, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
           <Item><Input placeholder="Search" /></Item>
-          <Button transparent>
-            <Text style={styles.searchButton}>Search</Text>
-          </Button>
         </Header>
         <Content>
          <ListView
@@ -144,7 +139,7 @@
     fontSize: 12,
   },
   searchbarColor: {
-    backgroundColor: '#104E8B',
+    backgroundColor: '#008542',
   },
   searchButton: {
     fontSize: 12,
