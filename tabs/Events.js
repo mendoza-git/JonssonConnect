@@ -57,13 +57,6 @@
      }
      return (
        <Container>
-       <Header searchBar style={styles.searchbarColor}>
-       <Thumbnail style={{width: 30, height: 30, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
-          <Item style={styles.search}><Input placeholder="Search" /></Item>
-          <Button transparent>
-            <Text style={styles.searchButton}>Search</Text>
-          </Button>
-        </Header>
         <Content>
          <ListView
            dataSource={this.state.dataSource}
@@ -117,6 +110,8 @@
              )
            }}
          />
+         <Image source={require('../images/eventsBanner.jpg')} style={{ height: 180, width: null }}></Image>
+
          </Content>
        </Container>
      )

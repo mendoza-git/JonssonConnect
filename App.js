@@ -12,6 +12,7 @@
  import Events from './tabs/Events'
  import Profile from './tabs/Profile'
  import EventDetails from './tabs/EventDetails'
+ import JobsDetails from './tabs/JobsDetails'
 
  import * as firebase from 'firebase';
 
@@ -33,9 +34,14 @@
    EventDetails: {screen: EventDetails},
  });
 
+ export const JobsFeedStack = StackNavigator({
+   JobsTab: {screen: Jobs},
+   JobsDetails: {screen: JobsDetails},
+ });
+
  export const AppScreenNavigator = TabNavigator({
    Home: {screen: Home},
-   JobsTab: {screen: Jobs},
+   JobsTab: {screen: JobsFeedStack},
    EventsTab: {screen: FeedStack},
    ProfileTab: {screen: Profile},
  }, {

@@ -1,5 +1,5 @@
 /**
- * JonssonConnect Events Page
+ * JonssonConnect Jobs Dertails Page
  * https://github.com/facebook/react-native
  * @flow
  */
@@ -11,7 +11,7 @@
  import firebaseListNews from '../App';
  import * as firebase from 'firebase';
 
- export default class EventDetails extends Component {
+ export default class JobsDetails extends Component {
 
    constructor(props) {
      super(props);
@@ -27,7 +27,7 @@
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
           isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson.Events),
+          dataSource: ds.cloneWithRows(responseJson.Jobs),
         }, function() {
           // do something with new state
         });
@@ -41,7 +41,7 @@
      tabBarLabel: 'Events',
      tabBarIcon: ({ tintcolor }) => (
        <Image
-        source={require('../images/eventsicon.png')}
+        source={require('../images/briefcaseicon.png')}
         style={{width: 22, height: 22}}>
        </Image>
      )
@@ -58,27 +58,36 @@
      return (
        <Container>
         <Content>
-        <Image source={{uri: this.props.navigation.state.params.rowData.eventImageURL}} style={{ height: 200, width: null }}>
+        <Image source={{uri: 'https://www.matrixc.com/wp-content/uploads/2017/10/ea-promotion-banner.jpg'}} style={{ height: 100, width: null }}>
         </Image>
         <Card style={{flex: 0}}>
             <CardItem>
               <Body>
-                <Text style={styles.nameStyle}>{this.props.navigation.state.params.rowData.eventName}</Text>
-                <Text style={styles.hostStyle}>{this.props.navigation.state.params.rowData.hostedBy}</Text>
+                <Text style={styles.nameStyle}>{this.props.navigation.state.params.rowData.companyName}</Text>
+                <Text style={styles.hostStyle}>{this.props.navigation.state.params.rowData.positionTitle}</Text>
+                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                <Text style={{fontSize: 14, fontWeight: '800'}}>Apply today at</Text>
+                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                <Text style={styles.applicationStyle}>{this.props.navigation.state.params.rowData.applicationURL}</Text>
               </Body>
             </CardItem>
             <CardItem>
               <Body>
               <Text style={{fontSize: 14, fontWeight: '800'}}>Details</Text>
               <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.eventDescription}</Text>
-              </Body>
-            </CardItem>
-            <CardItem>
-              <Body>
-              <Button block>
-              <Text style={{fontSize: 12, fontWeight: '400'}}>Attend</Text>
-              </Button>
+              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionOverview}</Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}>Qualifications</Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionQualifications}</Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}>Desired Majors</Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.desiredMajors}</Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}>Job-Type</Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.jobType}</Text>
               </Body>
             </CardItem>
           </Card>
@@ -89,6 +98,11 @@
  }
 
  const styles = StyleSheet.create({
+   applicationStyle: {
+      fontWeight: '600',
+      fontSize: 12,
+      color: '#104E8B',
+   },
   nameStyle: {
      fontWeight: '600',
      fontSize: 16,

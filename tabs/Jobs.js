@@ -57,20 +57,14 @@
      }
      return (
        <Container>
-       <Header searchBar style={styles.searchbarColor}>
-       <Thumbnail style={{width: 30, height: 30, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
-          <Item style={styles.search}><Input placeholder="Search" /></Item>
-          <Button transparent>
-            <Text style={styles.searchButton}>Search</Text>
-          </Button>
-        </Header>
         <Content>
+        <Image source={require('../images/jobsBanner.jpg')} style={{ height: 180, width: null }}></Image>
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
-               <Card>
+               <Card bordered>
                 <CardItem>
                   <Left>
                     <Thumbnail square source={{uri: rowData.companyImageURL}} />
@@ -87,6 +81,9 @@
                     </Body>
                   </Left>
                 </CardItem>
+                <Button full bordered light onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})}>
+                  <Text style={{fontSize: 10, fontWeight: '400', color: '#104E8B'}}>View Information</Text>
+                </Button>
               </Card>
              )
            }}
