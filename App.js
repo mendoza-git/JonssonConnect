@@ -13,6 +13,7 @@
  import Profile from './tabs/Profile'
  import EventDetails from './tabs/EventDetails'
  import JobsDetails from './tabs/JobsDetails'
+ import ArticleDetails from './tabs/ArticleDetails'
 
  import * as firebase from 'firebase';
 
@@ -30,20 +31,43 @@
  var firebaseListNews = firebaseDbh.child('Batman');
 
  export const FeedStack = StackNavigator({
-   EventsTab: {screen: Events},
+   EventsTab: {
+     screen: Events,
+     navigationOptions:({navigation}) => ({
+      title: "Events",
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#008542'}
+    })
+   },
    EventDetails: {screen: EventDetails},
  });
 
  export const JobsFeedStack = StackNavigator({
-   JobsTab: {screen: Jobs},
+   JobsTab: {
+     screen: Jobs,
+     navigationOptions:({navigation}) => ({
+      title: "Job Listings",
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#008542'}
+    })
+   },
    JobsDetails: {screen: JobsDetails},
  });
 
+ export const HomeFeedStack = StackNavigator({
+   Home: {
+     screen: Home,
+     navigationOptions:({navigation}) => ({
+      title: "News Feed",
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#008542'}
+    })
+   },
+   ArticleDetails: {screen: ArticleDetails},
+ });
+
  export const AppScreenNavigator = TabNavigator({
-   Home: {screen: Home},
+   Home: {screen: HomeFeedStack},
    JobsTab: {screen: JobsFeedStack},
    EventsTab: {screen: FeedStack},
-   ProfileTab: {screen: Profile},
+   //ProfileTab: {screen: Profile},
  }, {
    tabBarPosition : 'bottom',
    tabBarOptions : {

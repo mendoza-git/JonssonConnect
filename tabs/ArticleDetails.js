@@ -1,5 +1,5 @@
 /**
- * JonssonConnect Events Page
+ * JonssonConnect Article Details Page
  * https://github.com/facebook/react-native
  * @flow
  */
@@ -11,7 +11,7 @@
  import firebaseListNews from '../App';
  import * as firebase from 'firebase';
 
- export default class Home extends Component {
+ export default class ArticleDetails extends Component {
 
    constructor(props) {
      super(props);
@@ -58,7 +58,6 @@
      return (
        <Container>
         <Content>
-        <Image source={require('../images/homeBanner.png')} style={{ height: 180, width: null }}></Image>
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
@@ -70,30 +69,42 @@
                     <Thumbnail source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmfBRR5T0D2xN1IBPDFLC-c36Q04Rq-gc4sO-n7R5nsujLyASp7Q'}} />
                     <Body>
                     <Text style={styles.hostStyle}>
-                      {rowData.postedBy}
+                      {this.props.navigation.state.params.rowData.postedBy}
                     </Text>
                     <Text style={styles.nameStyle}>
-                      {rowData.articleNameName}
+                      {this.props.navigation.state.params.rowData.articleName}
                     </Text>
-
                     </Body>
                   </Left>
                 </CardItem>
                 <CardItem cardBody>
-                  <Image source={{uri: rowData.artcileImageURL}} style={{height: 100, width: null, flex: 1}}/>
+                  <Image source={{uri: rowData.articleImageURL}} style={{height: 100, width: null, flex: 1}}/>
                 </CardItem>
-                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                <Text style={styles.summaryStyle}>
-                  {rowData.articleSummary}
-                </Text>
-                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                <Button full bordered light onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})}>
-                  <Text style={{fontSize: 10, fontWeight: '400', color: '#104E8B'}}>View Article</Text>
-                </Button>
+                <CardItem>
+                  <Body>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}>Details</Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                  <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionOverview}</Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}>Qualifications</Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                  <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionQualifications}</Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}>Desired Majors</Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                  <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.desiredMajors}</Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}>Job-Type</Text>
+                  <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                  <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.jobType}</Text>
+                  </Body>
+                </CardItem>
               </Card>
              )
            }}
          />
+         <Image source={require('../images/eventsBanner.jpg')} style={{ height: 180, width: null }}></Image>
+
          </Content>
        </Container>
      )
@@ -109,15 +120,28 @@
      fontWeight: '600',
      fontSize: 14,
     },
+    applicationStyle: {
+       fontWeight: '600',
+       fontSize: 12,
+       color: '#104E8B',
+    },
+   nameStyle: {
+      fontWeight: '600',
+      fontSize: 16,
+   },
+   descriptionStyle: {
+      fontWeight: '400',
+      fontSize: 12,
+   },
+   hostStyle: {
+     fontSize: 12,
+     color: '#808080',
+   },
   eventNameStyle: {
     fontSize: 12,
   },
   eventDescriptionStyle: {
     fontSize: 10,
-  },
-  summaryStyle: {
-    fontSize: 11,
-    paddingTop: 4,
   },
   buttonStyle: {
     fontSize: 12,
