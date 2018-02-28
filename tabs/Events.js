@@ -5,7 +5,7 @@
  */
  import React, { Component } from 'react';
  import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
- import { TabNavigator } from "react-navigation";
+ import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import firebaseDbh from '../App';
  import firebaseListNews from '../App';
@@ -59,7 +59,10 @@
        <Container>
        <Header searchBar style={styles.searchbarColor}>
        <Thumbnail style={{width: 30, height: 30, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
-          <Item><Input placeholder="Search" /></Item>
+          <Item style={styles.search}><Input placeholder="Search" /></Item>
+          <Button transparent>
+            <Text style={styles.searchButton}>Search</Text>
+          </Button>
         </Header>
         <Content>
          <ListView
@@ -103,7 +106,7 @@
                     </Button>
                   </Body>
                   <Right>
-                  <Button transparent success>
+                  <Button transparent success onPress={() => this.props.navigation.navigate("EventDetails", {rowData})}>
                   <Text style={styles.buttonStyle}>
                     Details
                   </Text>
@@ -138,8 +141,20 @@
   buttonStyle: {
     fontSize: 12,
   },
+  search: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#ddd',
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+  },
   searchbarColor: {
-    backgroundColor: '#008542',
+    backgroundColor: '#0039A6',
   },
   searchButton: {
     fontSize: 12,

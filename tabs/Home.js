@@ -5,7 +5,7 @@
  */
  import React, { Component } from 'react';
  import { Image , StyleSheet, Text } from 'react-native';
- import { TabNavigator } from "react-navigation";
+ import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, Input, Item, Title, Button, Icon, Left, Body, Right, H1, H2, H3 } from 'native-base';
 
  export default class CardImageExample extends Component {
@@ -20,10 +20,10 @@
    }
    render() {
      return (
-       <Container>
+       <Container style={styles.backgroundStyle}>
        <Header searchBar style={styles.searchbarColor}>
        <Thumbnail style={{width: 30, height: 30, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
-          <Item><Input placeholder="Search" /></Item>
+          <Item style={styles.search}><Input style={styles.searchInputStyle} placeholder="Search News" /></Item>
           <Button transparent>
             <Text style={styles.searchButton}>Search</Text>
           </Button>
@@ -97,12 +97,31 @@
  }
 
  const styles = StyleSheet.create({
+  backgroundStyle: {
+    backgroundColor: '#D5D2CA',
+  },
   title: {
     color: '#104E8B',
     fontSize: 30
   },
+  search: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#ddd',
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+  },
   searchbarColor: {
-    backgroundColor: '#008542',
+    backgroundColor: '#0039A6',
+  },
+  searchInputStyle: {
+    fontSize: 12,
+    color: '#808080',
   },
   searchButton: {
     fontSize: 12,

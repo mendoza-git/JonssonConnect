@@ -5,11 +5,13 @@
  */
  import React, { Component } from 'react';
  import { Image, TextView, ListView } from 'react-native';
- import { TabNavigator } from "react-navigation";
+ import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Icon, Thumbnail, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import Home from './tabs/Home'
  import Jobs from './tabs/Jobs'
  import Events from './tabs/Events'
+ import Profile from './tabs/Profile'
+ import EventDetails from './tabs/EventDetails'
 
  import * as firebase from 'firebase';
 
@@ -26,10 +28,16 @@
  var firebaseDbh = firebase.database().ref().child('news');
  var firebaseListNews = firebaseDbh.child('Batman');
 
+ export const FeedStack = StackNavigator({
+   EventsTab: {screen: Events},
+   EventDetails: {screen: EventDetails},
+ });
+
  export const AppScreenNavigator = TabNavigator({
    Home: {screen: Home},
    JobsTab: {screen: Jobs},
-   EventsTab: {screen: Events},
+   EventsTab: {screen: FeedStack},
+   ProfileTab: {screen: Profile},
  }, {
    tabBarPosition : 'bottom',
    tabBarOptions : {

@@ -1,11 +1,11 @@
 /**
- * JonssonConnect Events Page
+ * JonssonConnect Jobs Page
  * https://github.com/facebook/react-native
  * @flow
  */
  import React, { Component } from 'react';
  import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
- import { TabNavigator } from "react-navigation";
+ import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import firebaseDbh from '../App';
  import firebaseListNews from '../App';
@@ -58,8 +58,11 @@
      return (
        <Container>
        <Header searchBar style={styles.searchbarColor}>
-       <Thumbnail style={{width: 20, height: 20, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
-          <Item><Input placeholder="Search" /></Item>
+       <Thumbnail style={{width: 30, height: 30, margin: 10}} small source={{uri: 'https://joashpereira.com/templates/material_one_pager/img/avatar1.png'}} />
+          <Item style={styles.search}><Input placeholder="Search" /></Item>
+          <Button transparent>
+            <Text style={styles.searchButton}>Search</Text>
+          </Button>
         </Header>
         <Content>
          <ListView
@@ -75,7 +78,7 @@
                     <Text style={styles.positionTitleStyle}>
                       {rowData.positionTitle}
                     </Text>
-                    <Text style={styles.comapanyNameStyle}>
+                    <Text style={styles.companyNameStyle}>
                       {rowData.companyName}
                     </Text>
                     <Text style={styles.jobLocationStyle}>
@@ -95,7 +98,7 @@
  }
 
  const styles = StyleSheet.create({
-  comapanyNameStyle: {
+  companyNameStyle: {
     fontWeight: '500',
     fontSize: 12,
     paddingTop: 3,
@@ -112,8 +115,20 @@
   buttonStyle: {
     fontSize: 12,
   },
+  search: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#ddd',
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+  },
   searchbarColor: {
-    backgroundColor: '#008542',
+    backgroundColor: '#0039A6',
   },
   searchButton: {
     fontSize: 12,
