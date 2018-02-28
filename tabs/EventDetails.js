@@ -58,12 +58,23 @@
      return (
        <Container>
         <Content>
-        <Text>{this.props.navigation.state.params.rowData.eventName}</Text>
-        <Grid>
-          <Col style={{height: 200}}>
-          <Image source={{ uri: this.props.navigation.state.params.rowData.eventImageURL }}></Image>
-          </Col>
-        </Grid>
+        <Image source={{uri: this.props.navigation.state.params.rowData.eventImageURL}} style={{ height: 200, width: null }}>
+        </Image>
+        <Card style={{flex: 0}}>
+            <CardItem>
+              <Body>
+                <Text style={styles.nameStyle}>{this.props.navigation.state.params.rowData.eventName}</Text>
+                <Text style={styles.hostStyle}>{this.props.navigation.state.params.rowData.hostedBy}</Text>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Body>
+              <Text style={{fontSize: 14, fontWeight: '800'}}>Details</Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.eventDescription}</Text>
+              </Body>
+            </CardItem>
+          </Card>
         </Content>
        </Container>
      )
@@ -71,19 +82,17 @@
  }
 
  const styles = StyleSheet.create({
-  hostStyle: {
-    fontWeight: '800',
-    fontSize: 14,
-   },
-   nameStyle: {
+  nameStyle: {
      fontWeight: '600',
-     fontSize: 14,
-    },
-  eventNameStyle: {
-    fontSize: 12,
+     fontSize: 16,
   },
-  eventDescriptionStyle: {
-    fontSize: 10,
+  descriptionStyle: {
+     fontWeight: '400',
+     fontSize: 12,
+  },
+  hostStyle: {
+    fontSize: 12,
+    color: '#808080',
   },
   buttonStyle: {
     fontSize: 12,
