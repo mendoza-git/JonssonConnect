@@ -67,7 +67,7 @@
    Home: {screen: HomeFeedStack},
    JobsTab: {screen: JobsFeedStack},
    EventsTab: {screen: FeedStack},
-   //ProfileTab: {screen: Profile},
+   ProfileTab: {screen: Profile},
  }, {
    tabBarPosition : 'bottom',
    tabBarOptions : {
