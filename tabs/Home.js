@@ -29,8 +29,7 @@
           isLoading: false,
           dataSource: ds.cloneWithRows(responseJson.Articles),
         }, function() {
-          // do something with new state
-        });
+          });
       })
       .catch((error) => {
         console.error(error);
@@ -64,6 +63,7 @@
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
+
                <Card>
                 <CardItem>
                   <Left>

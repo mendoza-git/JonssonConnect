@@ -14,6 +14,8 @@
  import EventDetails from './tabs/EventDetails'
  import JobsDetails from './tabs/JobsDetails'
  import ArticleDetails from './tabs/ArticleDetails'
+ import Login from './tabs/Login'
+
 
  import * as firebase from 'firebase';
 
@@ -27,8 +29,16 @@
  };
  const firebaseApp = firebase.initializeApp(config);
 
- var firebaseDbh = firebase.database().ref().child('news');
- var firebaseListNews = firebaseDbh.child('Batman');
+ export const HomeFeedStack = StackNavigator({
+   Home: {
+     screen: Home,
+     navigationOptions:({navigation}) => ({
+      title: "News Feed",
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#C75B12'}
+    })
+   },
+   ArticleDetails: {screen: ArticleDetails},
+ });
 
  export const FeedStack = StackNavigator({
    EventsTab: {
@@ -52,17 +62,6 @@
    JobsDetails: {screen: JobsDetails},
  });
 
- export const HomeFeedStack = StackNavigator({
-   Home: {
-     screen: Home,
-     navigationOptions:({navigation}) => ({
-      title: "News Feed",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#008542'}
-    })
-   },
-   ArticleDetails: {screen: ArticleDetails},
- });
-
  export const AppScreenNavigator = TabNavigator({
    Home: {screen: HomeFeedStack},
    JobsTab: {screen: JobsFeedStack},
@@ -83,4 +82,4 @@
    title: "App"
  };
 
- export default AppScreenNavigator;
+ export default Login;

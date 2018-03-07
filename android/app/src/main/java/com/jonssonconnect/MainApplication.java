@@ -3,6 +3,9 @@ package com.jonssonconnect;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.psykar.cookiemanager.CookieManagerPackage;
+import com.reactlibrary.linkedinsdk.RNLinkedInSessionManagerPackage;
+import net.jodybrewster.linkedinlogin.RNLinkedinLoginPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -27,6 +30,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new CookieManagerPackage(),
+            new RNLinkedInSessionManagerPackage(),
+            new RNLinkedinLoginPackage(),
             new RNFetchBlobPackage(),
             new VectorIconsPackage(),
             new RNGoogleSigninPackage(),

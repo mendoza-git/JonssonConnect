@@ -1472,6 +1472,10 @@ decamelize@^1.0.0, decamelize@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
+decode-uri-component@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
+
 deep-extend@~0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.2.tgz#48b699c27e334bf89f10892be432f6e4c7d34a7f"
@@ -2317,6 +2321,12 @@ inquirer@^3.0.6:
     string-width "^2.1.0"
     strip-ansi "^4.0.0"
     through "^2.3.6"
+
+invariant@^2.1.0:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.3.tgz#1a827dfde7dcbd7c323f0ca826be8fa7c5e9d688"
+  dependencies:
+    loose-envify "^1.0.0"
 
 invariant@^2.2.2:
   version "2.2.2"
@@ -3810,11 +3820,23 @@ qs@~6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
 
+query-string@^5.0.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-5.1.0.tgz#9583b15fd1307f899e973ed418886426a9976469"
+  dependencies:
+    decode-uri-component "^0.2.0"
+    object-assign "^4.1.0"
+    strict-uri-encode "^1.0.0"
+
 raf@^3.1.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.0.tgz#a28876881b4bc2ca9117d4138163ddb80f781575"
   dependencies:
     performance-now "^2.1.0"
+
+ramda@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
 
 random-bytes@~1.0.0:
   version "1.0.0"
@@ -3863,6 +3885,12 @@ react-devtools-core@3.0.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-cookies@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-cookies/-/react-native-cookies-3.2.0.tgz#1079d4d368bb287d1c8a93f3b9b60a4bde659966"
+  dependencies:
+    invariant "^2.1.0"
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
@@ -3909,6 +3937,36 @@ react-native-keyboard-aware-scroll-view@0.4.2:
   dependencies:
     prop-types "^15.6.0"
     react-native-iphone-x-helper "^1.0.1"
+
+react-native-linkedin-login@^1.44.1:
+  version "1.44.1"
+  resolved "https://registry.yarnpkg.com/react-native-linkedin-login/-/react-native-linkedin-login-1.44.1.tgz#62c49dac7252abb0e8ea42acb436b0aeceae586e"
+
+react-native-linkedin-oauth@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-linkedin-oauth/-/react-native-linkedin-oauth-0.5.0.tgz#15b89308120dc2dd4e22ada6ff36b78480aecfb7"
+
+react-native-linkedin-sdk@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-linkedin-sdk/-/react-native-linkedin-sdk-0.0.9.tgz#a0d5fa818021747575c2ce3b1cfb83fee60da4bf"
+
+react-native-linkedin@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-linkedin/-/react-native-linkedin-1.3.1.tgz#e14d0198f886bddda22aa6457a12a48256425c20"
+  dependencies:
+    query-string "^5.0.0"
+    ramda "^0.25.0"
+    uuid "^3.1.0"
+
+react-native-search-bar-tst@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-search-bar-tst/-/react-native-search-bar-tst-3.0.0.tgz#1013d6a313bb8527b5f12351959ac7eebd3b5100"
+
+react-native-search-list@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-search-list/-/react-native-search-list-0.1.0.tgz#f192a7c3f43223c6459221a17e46a4b111ff1ef3"
+  dependencies:
+    react-native-search-bar-tst "3.0.0"
 
 react-native-tab-view@^0.0.74:
   version "0.0.74"
@@ -4552,6 +4610,10 @@ stream-counter@~0.2.0:
   resolved "https://registry.yarnpkg.com/stream-counter/-/stream-counter-0.2.0.tgz#ded266556319c8b0e222812b9cf3b26fa7d947de"
   dependencies:
     readable-stream "~1.1.8"
+
+strict-uri-encode@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
 
 string-length@^2.0.0:
   version "2.0.0"

@@ -38,7 +38,7 @@
   }
 
    static navigationOptions = {
-     tabBarLabel: 'Events',
+     tabBarLabel: 'Jobs',
      tabBarIcon: ({ tintcolor }) => (
        <Image
         source={require('../images/briefcaseicon.png')}

@@ -137,6 +137,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-cookies')
+    compile project(':react-native-linkedin-sdk')
+    compile project(':react-native-linkedin-login')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-vector-icons')
     compile project(':react-native-google-signin')
