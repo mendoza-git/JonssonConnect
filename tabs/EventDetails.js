@@ -76,7 +76,7 @@
             </CardItem>
             <CardItem>
               <Body>
-              <Button block>
+              <Button block bordered>
               <Text style={{fontSize: 12, fontWeight: '400'}}>Attend</Text>
               </Button>
               </Body>

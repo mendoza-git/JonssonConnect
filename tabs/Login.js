@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {
+  AsyncStorage,
   StyleSheet,
   View,
   Dimensions,
@@ -61,7 +62,19 @@ const styles = StyleSheet.create({
   },
 })
 
+var STORAGE_KEY = 'token';
+var DEMO_TOKEN = "0";
+
 export default class Login extends React.Component {
+
+  async componentDidMount() {
+   const { navigate } = this.props.navigation;
+   var DEMO_TOKEN_LOGIN = await AsyncStorage.getItem(DEMO_TOKEN);
+   if (DEMO_TOKEN_LOGIN === "1") {
+     this.props.navigation.navigate("Home")
+   }
+  };
+
   state = {
     access_token: undefined,
     expires_in: undefined,
@@ -83,6 +96,7 @@ export default class Login extends React.Component {
       'email-address',
       'summary',
       'picture-url',
+      'id',
     ]
 
     const response = await fetch(`${baseApi}~:(${params.join(',')})?format=json`, {
@@ -109,7 +123,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    const { emailAddress, pictureUrl, refreshing, firstName, lastName, summary, } = this.state;
+    const { emailAddress, pictureUrl, refreshing, firstName, lastName, summary, id, } = this.state;
     return (
       <View style={styles.container}>
         {!emailAddress &&
@@ -119,14 +133,17 @@ export default class Login extends React.Component {
                 ref={ref => {
                   this.modal = ref
                 }}
-                linkText="Hi im linkedin click on me hehahhahahahshx"
+                linkText=""
                 clientID="86c3k9s35z8di0"
                 clientSecret="ptaW1pqjV26iefkz"
                 redirectUri="https://github.com/mendoza-git/JonssonConnect"
                 onSuccess= {
-                  data => this.getUser(data)
+                  data => this.getUser(data),
+                  AsyncStorage.setItem("DEMO_TOKEN", "1"),
+                  () => this.props.navigation.navigate("Home")
                 }
               />
+              <Button title="Login in" onPress={() => this.modal.open()} />
             </View>
           )}
 
@@ -142,6 +159,7 @@ export default class Login extends React.Component {
             {this.renderItem('First name', firstName)}
             {this.renderItem('Last name', lastName)}
             {this.renderItem('Summary', summary)}
+            {this.renderItem('ID', id)}
           </View>
         )}
       </View>

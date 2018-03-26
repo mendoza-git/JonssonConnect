@@ -56,8 +56,9 @@
        );
      }
      return (
-       <Container>
+       <Container style={styles.containerStyle}>
         <Content>
+        <Image source={require('../images/jceventsbanner.png')} style={{ height: 180, width: null }}></Image>
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
@@ -110,8 +111,6 @@
              )
            }}
          />
-         <Image source={require('../images/eventsBanner.jpg')} style={{ height: 180, width: null }}></Image>
-
          </Content>
        </Container>
      )
@@ -119,6 +118,9 @@
  }
 
  const styles = StyleSheet.create({
+  containerStyle: {
+     backgroundColor: '#F6F6F6',
+  },
   hostStyle: {
     fontWeight: '800',
     fontSize: 14,

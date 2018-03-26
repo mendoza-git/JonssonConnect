@@ -4,11 +4,9 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
+ import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View, TextInput } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
- import firebaseDbh from '../App';
- import firebaseListNews from '../App';
  import * as firebase from 'firebase';
 
  export default class Jobs extends Component {
@@ -28,6 +26,7 @@
         this.setState({
           isLoading: false,
           dataSource: ds.cloneWithRows(responseJson.Jobs),
+          data: responseJson.Jobs,
         }, function() {
           // do something with new state
         });
@@ -47,6 +46,8 @@
      )
    }
 
+
+
    render() {
      if (this.state.isLoading) {
        return (
@@ -56,9 +57,9 @@
        );
      }
      return (
-       <Container>
+       <Container style={styles.containerStyle}>
         <Content>
-        <Image source={require('../images/jobsBanner.jpg')} style={{ height: 180, width: null }}></Image>
+        <Image source={require('../images/jcjobsbanner.png')} style={{ height: 180, width: null }}></Image>
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
@@ -95,6 +96,9 @@
  }
 
  const styles = StyleSheet.create({
+  containerStyle: {
+    backgroundColor: '#F6F6F6',
+  },
   companyNameStyle: {
     fontWeight: '500',
     fontSize: 12,
@@ -120,7 +124,7 @@
     borderBottomWidth: 0,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.5,
     shadowRadius: 2,
     elevation: 1,
   },
@@ -130,5 +134,14 @@
   searchButton: {
     fontSize: 12,
     color: '#ffffff',
+  },
+  textInput: {
+    height: 30,
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
+    marginBottom: 5,
+    marginVertical: 5,
+    marginHorizontal: 5,
   },
 });

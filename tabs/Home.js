@@ -4,16 +4,14 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
+ import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, TextInput, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
- import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
- import firebaseDbh from '../App';
- import firebaseListNews from '../App';
+ import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Tab, Tabs, Text, Title, Button, Left, Body, Right, H1, H2, H3, } from 'native-base';
+
  import * as firebase from 'firebase';
 
  export default class Home extends Component {
-
-   constructor(props) {
+  constructor(props) {
      super(props);
      this.state = {
        isLoading: true
@@ -55,34 +53,23 @@
        );
      }
      return (
-       <Container>
+       <Container style={styles.containerStyle}>
         <Content>
-        <Image source={require('../images/homeBanner.png')} style={{ height: 180, width: null }}></Image>
+          <Text style={styles.colorHeader}>Top<Text style={styles.bigHeader}> News</Text> </Text>
+          <Image source={require('../images/jchomebanner.png')} style={{ height: 180, width: null }}></Image>
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
-
                <Card>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmfBRR5T0D2xN1IBPDFLC-c36Q04Rq-gc4sO-n7R5nsujLyASp7Q'}} />
-                    <Body>
-                    <Text style={styles.hostStyle}>
-                      {rowData.postedBy}
-                    </Text>
-                    <Text style={styles.nameStyle}>
-                      {rowData.articleNameName}
-                    </Text>
-
-                    </Body>
-                  </Left>
-                </CardItem>
                 <CardItem cardBody>
-                  <Image source={{uri: rowData.artcileImageURL}} style={{height: 100, width: null, flex: 1}}/>
+                  <Image source={{uri: rowData.articleImageURL}} style={{height: 200, width: null, flex: 1}}/>
                 </CardItem>
                 <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                <Text style={styles.typeStyle}>
+                  {rowData.articleType}
+                </Text>
                 <Text style={styles.summaryStyle}>
                   {rowData.articleSummary}
                 </Text>
@@ -101,23 +88,62 @@
  }
 
  const styles = StyleSheet.create({
+  containerStyle: {
+    backgroundColor: '#F6F6F6',
+  },
   hostStyle: {
     fontWeight: '800',
     fontSize: 14,
-   },
-   nameStyle: {
-     fontWeight: '600',
-     fontSize: 14,
-    },
+  },
+
+  cardStyle: {
+    paddingLeft: 10,
+  },
+  nameStyle: {
+   fontWeight: '600',
+   fontSize: 14,
+  },
   eventNameStyle: {
     fontSize: 12,
+  },
+  bigHeader: {
+    fontSize: 28,
+    fontWeight: '800',
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingLeft: 10,
+  },
+  colorHeader: {
+    fontSize: 28,
+    fontWeight: '800',
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    color: '#C75B12',
+  },
+  jonssonHeader: {
+    fontSize: 24,
+    fontWeight: '800',
+    paddingBottom: 20,
+    paddingLeft: 10,
   },
   eventDescriptionStyle: {
     fontSize: 10,
   },
+  typeStyle: {
+    fontSize: 14,
+    fontWeight: '800',
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 5,
+    color: '#0085c2',
+  },
   summaryStyle: {
-    fontSize: 11,
-    paddingTop: 4,
+    fontSize: 18,
+    fontWeight: '800',
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 5,
   },
   buttonStyle: {
     fontSize: 12,
@@ -135,10 +161,19 @@
     elevation: 1,
   },
   searchbarColor: {
-    backgroundColor: '#0039A6',
+    backgroundColor: '#00A1DE',
   },
   searchButton: {
     fontSize: 12,
     color: '#ffffff',
+  },
+  textInput: {
+    height: 30,
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
+    marginBottom: 5,
+    marginVertical: 5,
+    marginHorizontal: 5,
   },
 });

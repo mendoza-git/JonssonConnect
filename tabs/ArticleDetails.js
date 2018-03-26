@@ -7,8 +7,6 @@
  import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
- import firebaseDbh from '../App';
- import firebaseListNews from '../App';
  import * as firebase from 'firebase';
 
  export default class ArticleDetails extends Component {
@@ -58,7 +56,7 @@
      return (
        <Container>
        <Content>
-       <Image source={{uri: this.props.navigation.state.params.rowData.artcileImageURL}} style={{ height: 200, width: null }}></Image>
+       <Image source={{uri: this.props.navigation.state.params.rowData.articleImageURL}} style={{ height: 200, width: null }}></Image>
        <Card style={{flex: 0}}>
            <CardItem>
              <Body>

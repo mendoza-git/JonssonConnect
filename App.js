@@ -4,9 +4,10 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { Image, TextView, ListView } from 'react-native';
+ import { ActivityIndicator, AsyncStorage, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Icon, Thumbnail, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
+ import ComputerScience from './tabs/ComputerScience'
  import Home from './tabs/Home'
  import Jobs from './tabs/Jobs'
  import Events from './tabs/Events'
@@ -14,9 +15,8 @@
  import EventDetails from './tabs/EventDetails'
  import JobsDetails from './tabs/JobsDetails'
  import ArticleDetails from './tabs/ArticleDetails'
+
  import Login from './tabs/Login'
-
-
  import * as firebase from 'firebase';
 
  // Initialize Firebase
@@ -28,13 +28,29 @@
    storageBucket: "jonssonconnect.appspot.com",
  };
  const firebaseApp = firebase.initializeApp(config);
+ // Create a reference with .ref() instead of new Firebase(url)
+ const rootRef = firebase.database().ref();
+ const jobsRef = rootRef.child('Jobs');
+
+ export const LoginFeedStack = StackNavigator({
+   Login: {
+     screen: Login,
+     navigationOptions:({navigation}) => ({
+      showLabel: false,
+      tabBarVisible: false,
+    })
+
+   },
+   HomeFeedStack: {screen: Home},
+ });
 
  export const HomeFeedStack = StackNavigator({
    Home: {
      screen: Home,
      navigationOptions:({navigation}) => ({
       title: "News Feed",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#C75B12'}
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#FFFFFF'},
+      headerTitleStyle: { fontSize: 18, fontWeight: '800' },
     })
    },
    ArticleDetails: {screen: ArticleDetails},
@@ -45,7 +61,8 @@
      screen: Events,
      navigationOptions:({navigation}) => ({
       title: "Events",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#008542'}
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#FFFFFF'},
+      headerTitleStyle: { fontSize: 18, fontWeight: '800' },
     })
    },
    EventDetails: {screen: EventDetails},
@@ -56,14 +73,17 @@
      screen: Jobs,
      navigationOptions:({navigation}) => ({
       title: "Job Listings",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#008542'}
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#FFFFFF'},
+      headerTitleStyle: { fontSize: 18, fontWeight: '800' },
     })
    },
    JobsDetails: {screen: JobsDetails},
  });
 
+
  export const AppScreenNavigator = TabNavigator({
-   Home: {screen: HomeFeedStack},
+   //LoginFeedStack: {screen: LoginFeedStack},
+   HomeFeedStack: {screen: HomeFeedStack},
    JobsTab: {screen: JobsFeedStack},
    EventsTab: {screen: FeedStack},
    ProfileTab: {screen: Profile},
@@ -74,7 +94,7 @@
      activeBackgroundColor: '#ffffff',
      inactiveBackgroundColor: '#ffffff',
      inactiveTintColor: '#B7C3D0',
-     swipingEnbled: 'false',
+     swipingEnbled: 'true',
    }
  });
 
@@ -82,4 +102,4 @@
    title: "App"
  };
 
- export default Login;
+ export default AppScreenNavigator
