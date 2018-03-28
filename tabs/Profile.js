@@ -62,22 +62,20 @@
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
-               <Card>
-                <CardItem cardBody>
-                  <Image source={{uri: rowData.articleImageURL}} style={{height: 200, width: null, flex: 1}}/>
-                </CardItem>
-                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                <Text style={styles.typeStyle}>
-                  {rowData.articleType}
-                </Text>
-                <Text style={styles.summaryStyle}>
-                  {rowData.articleSummary}
-                </Text>
-                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                <Button full bordered light onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})}>
-                  <Text style={{fontSize: 10, fontWeight: '400', color: '#104E8B'}}>View Article</Text>
-                </Button>
-              </Card>
+               <Content>
+              <Image source={{uri: rowData.articleImageURL}} style={{height: 200, width: null, flex: 1}}/>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Text style={styles.typeStyle}>
+                {rowData.articleType}
+              </Text>
+              <Text style={styles.summaryStyle}>
+                {rowData.articleSummary}
+              </Text>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Button full bordered light onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})}>
+                <Text style={{fontSize: 10, fontWeight: '400', color: '#104E8B'}}>View Article</Text>
+              </Button>
+              </Content>
              )
            }}
          />
@@ -131,8 +129,8 @@
     fontSize: 10,
   },
   typeStyle: {
-    fontSize: 14,
-    fontWeight: '800',
+    fontSize: 10,
+    fontWeight: '100',
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 5,

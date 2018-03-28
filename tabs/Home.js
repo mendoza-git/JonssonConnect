@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, TextInput, View } from 'react-native';
+ import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, TextInput, View, TouchableHighlight } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Tab, Tabs, Text, Title, Button, Left, Body, Right, H1, H2, H3, } from 'native-base';
 
@@ -62,22 +62,21 @@
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
-               <Card>
-                <CardItem cardBody>
-                  <Image source={{uri: rowData.articleImageURL}} style={{height: 200, width: null, flex: 1}}/>
-                </CardItem>
+              <Content>
                 <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                <Text style={styles.typeStyle}>
+                <Text style={{color: rowData.articleColor,fontSize: 10, fontWeight: '100', paddingLeft: 10, paddingRight: 5, }}>
                   {rowData.articleType}
                 </Text>
-                <Text style={styles.summaryStyle}>
-                  {rowData.articleSummary}
+                <Text onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})} style={styles.nameStyle}>
+                    {rowData.articleName}
                 </Text>
+                <Text style={styles.dateStyle}>
+                    {rowData.postedOn}
+                </Text>
+                <Text style={{fontSize: 12, fontWeight: '600'}}></Text>
+
                 <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                <Button full bordered light onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})}>
-                  <Text style={{fontSize: 10, fontWeight: '400', color: '#104E8B'}}>View Article</Text>
-                </Button>
-              </Card>
+              </Content>
              )
            }}
          />
@@ -89,7 +88,7 @@
 
  const styles = StyleSheet.create({
   containerStyle: {
-    backgroundColor: '#F6F6F6',
+    backgroundColor: '#FFFFFF',
   },
   hostStyle: {
     fontWeight: '800',
@@ -100,11 +99,19 @@
     paddingLeft: 10,
   },
   nameStyle: {
-   fontWeight: '600',
-   fontSize: 14,
+    fontSize: 16,
+    fontWeight: '800',
+    paddingTop: 5,
+    paddingLeft: 10,
+    paddingRight: 5,
   },
-  eventNameStyle: {
-    fontSize: 12,
+  dateStyle: {
+    fontSize: 10,
+    fontWeight: '100',
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 5,
+    color: '#878787',
   },
   bigHeader: {
     fontSize: 28,
