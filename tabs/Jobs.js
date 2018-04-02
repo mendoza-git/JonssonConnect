@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View, TextInput } from 'react-native';
+ import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View, TextInput, ImageBackground } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import * as firebase from 'firebase';
@@ -60,32 +60,35 @@
        <Container style={styles.containerStyle}>
         <Content>
         <Image source={require('../images/jcjobsbanner.png')} style={{ height: 180, width: null }}></Image>
+        <Content style={{ backgroundColor: '#f8f6f6'}}>
+          <Text style={styles.colorHeader}>Trending<Text style={styles.bigHeader}> Jobs</Text> </Text>
+          <Text style={{fontWeight: '800', color: '#008542', paddingLeft: 15}}>________</Text>
+        </Content>
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
-               <Card bordered>
-                <CardItem>
-                  <Left>
-                    <Thumbnail square source={{uri: rowData.companyImageURL}} />
-                    <Body>
-                    <Text style={styles.positionTitleStyle}>
-                      {rowData.positionTitle}
-                    </Text>
-                    <Text style={styles.companyNameStyle}>
-                      {rowData.companyName}
-                    </Text>
-                    <Text style={styles.jobLocationStyle}>
-                      {rowData.jobLocation}
-                    </Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <Button full bordered light onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})}>
-                  <Text style={{fontSize: 10, fontWeight: '400', color: '#104E8B'}}>View Information</Text>
-                </Button>
-              </Card>
+               <Content>
+                <List style={{ backgroundColor: '#FFFFFF'}}>
+                  <ListItem>
+                    <Left>
+                      <Thumbnail square source={{uri: rowData.companyImageURL}} />
+                      <Body>
+                        <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.positionTitleStyle}>
+                          {rowData.positionTitle}
+                        </Text>
+                        <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.companyNameStyle}>
+                          {rowData.companyName}
+                        </Text>
+                        <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.jobLocationStyle}>
+                          {rowData.jobLocation}
+                        </Text>
+                      </Body>
+                    </Left>
+                  </ListItem>
+                </List>
+              </Content>
              )
            }}
          />
@@ -96,8 +99,24 @@
  }
 
  const styles = StyleSheet.create({
+  listStyle: {
+     backgroundColor: '#FFFFFF',
+  },
+  bigHeader: {
+    fontSize: 18,
+    fontWeight: '800',
+    paddingTop: 10,
+    paddingLeft: 15,
+  },
+  colorHeader: {
+    fontSize: 18,
+    fontWeight: '800',
+    paddingTop: 10,
+    paddingLeft: 15,
+    color: '#008542',
+  },
   containerStyle: {
-    backgroundColor: '#F6F6F6',
+    backgroundColor: '#FFFFFF',
   },
   companyNameStyle: {
     fontWeight: '500',

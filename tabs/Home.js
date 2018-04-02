@@ -8,6 +8,9 @@
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Tab, Tabs, Text, Title, Button, Left, Body, Right, H1, H2, H3, } from 'native-base';
 
+ import Jobs from './Jobs'
+
+
  import * as firebase from 'firebase';
 
  export default class Home extends Component {
@@ -55,31 +58,34 @@
      return (
        <Container style={styles.containerStyle}>
         <Content>
-          <Text style={styles.colorHeader}>Top<Text style={styles.bigHeader}> News</Text> </Text>
           <Image source={require('../images/jchomebanner.png')} style={{ height: 180, width: null }}></Image>
-         <ListView
-           dataSource={this.state.dataSource}
-           renderRow={(rowData) => {
-             const {uri} = rowData;
-             return (
-              <Content>
-                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                <Text style={{color: rowData.articleColor,fontSize: 10, fontWeight: '100', paddingLeft: 10, paddingRight: 5, }}>
-                  {rowData.articleType}
-                </Text>
-                <Text onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})} style={styles.nameStyle}>
-                    {rowData.articleName}
-                </Text>
-                <Text style={styles.dateStyle}>
-                    {rowData.postedOn}
-                </Text>
-                <Text style={{fontSize: 12, fontWeight: '600'}}></Text>
+            <Content style={{ backgroundColor: '#f8f6f6'}}>
+              <Text style={styles.colorHeader}>Top<Text style={styles.bigHeader}> News</Text> </Text>
+              <Text style={{fontWeight: '800', color: '#C75B12', paddingLeft: 15}}>________</Text>
+            </Content>
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={(rowData) => {
+                const {uri} = rowData;
+                return (
+                 <Content>
+                   <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                   <Text style={{color: rowData.articleColor, fontSize: 10, fontWeight: '100', paddingLeft: 15, paddingRight: 5, paddingTop: 10, }}>
+                     {rowData.articleType}
+                   </Text>
+                   <Text onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})} style={styles.nameStyle}>
+                       {rowData.articleName}
+                   </Text>
+                   <Text style={styles.dateStyle}>
+                       {rowData.postedOn}
+                   </Text>
+                 </Content>
+                )
+              }}
+            />
 
-                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              </Content>
-             )
-           }}
-         />
+
+
          </Content>
        </Container>
      )
@@ -94,22 +100,23 @@
     fontWeight: '800',
     fontSize: 14,
   },
-
-  cardStyle: {
+  seperator: {
+    fontWeight: '100',
+    color: '#D3D3D3',
     paddingLeft: 10,
   },
   nameStyle: {
     fontSize: 16,
     fontWeight: '800',
     paddingTop: 5,
-    paddingLeft: 10,
+    paddingLeft: 15,
     paddingRight: 5,
   },
   dateStyle: {
     fontSize: 10,
     fontWeight: '100',
     paddingTop: 10,
-    paddingLeft: 10,
+    paddingLeft: 15,
     paddingRight: 5,
     color: '#878787',
   },
@@ -117,15 +124,13 @@
     fontSize: 28,
     fontWeight: '800',
     paddingTop: 10,
-    paddingBottom: 5,
-    paddingLeft: 10,
+    paddingLeft: 15,
   },
   colorHeader: {
     fontSize: 28,
     fontWeight: '800',
     paddingTop: 10,
-    paddingBottom: 5,
-    paddingLeft: 10,
+    paddingLeft: 15,
     color: '#C75B12',
   },
   jonssonHeader: {
@@ -141,7 +146,7 @@
     fontSize: 14,
     fontWeight: '800',
     paddingTop: 10,
-    paddingLeft: 10,
+    paddingLeft: 15,
     paddingRight: 5,
     color: '#0085c2',
   },
@@ -149,7 +154,7 @@
     fontSize: 18,
     fontWeight: '800',
     paddingTop: 10,
-    paddingLeft: 10,
+    paddingLeft: 15,
     paddingRight: 5,
   },
   buttonStyle: {

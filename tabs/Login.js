@@ -107,6 +107,9 @@ export default class Login extends React.Component {
     })
     const payload = await response.json()
     this.setState({ ...payload, refreshing: false })
+
+    this.props.navigation.navigate("HomeFeedStack");
+    //this.props.navigation.navigate("HomeFeedStack",{}, params: {data: "id"});
   }
 
   renderItem(label, value) {
@@ -138,9 +141,9 @@ export default class Login extends React.Component {
                 clientSecret="ptaW1pqjV26iefkz"
                 redirectUri="https://github.com/mendoza-git/JonssonConnect"
                 onSuccess= {
-                  data => this.getUser(data),
-                  AsyncStorage.setItem("DEMO_TOKEN", "1"),
-                  () => this.props.navigation.navigate("Home")
+                  data => this.getUser(data)
+                  //AsyncStorage.setItem("DEMO_TOKEN", "1"),
+                  //() => this.props.navigation.navigate("HomeFeedStack")
                 }
               />
               <Button title="Login in" onPress={() => this.modal.open()} />

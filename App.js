@@ -11,12 +11,12 @@
  import Home from './tabs/Home'
  import Jobs from './tabs/Jobs'
  import Events from './tabs/Events'
+ import Login from './tabs/Login'
  import Profile from './tabs/Profile'
  import EventDetails from './tabs/EventDetails'
  import JobsDetails from './tabs/JobsDetails'
  import ArticleDetails from './tabs/ArticleDetails'
 
- import Login from './tabs/Login'
  import * as firebase from 'firebase';
 
  // Initialize Firebase
@@ -32,24 +32,12 @@
  const rootRef = firebase.database().ref();
  const jobsRef = rootRef.child('Jobs');
 
- export const LoginFeedStack = StackNavigator({
-   Login: {
-     screen: Login,
-     navigationOptions:({navigation}) => ({
-      showLabel: false,
-      tabBarVisible: false,
-    })
-
-   },
-   HomeFeedStack: {screen: Home},
- });
-
  export const HomeFeedStack = StackNavigator({
    Home: {
      screen: Home,
      navigationOptions:({navigation}) => ({
       title: "News Feed",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#FFFFFF'},
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#f8f6f6'},
       headerTitleStyle: { fontSize: 18, fontWeight: '800' },
     })
    },
@@ -61,7 +49,7 @@
      screen: Events,
      navigationOptions:({navigation}) => ({
       title: "Events",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#FFFFFF'},
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#f8f6f6'},
       headerTitleStyle: { fontSize: 18, fontWeight: '800' },
     })
    },
@@ -73,16 +61,15 @@
      screen: Jobs,
      navigationOptions:({navigation}) => ({
       title: "Job Listings",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#FFFFFF'},
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#f8f6f6'},
       headerTitleStyle: { fontSize: 18, fontWeight: '800' },
     })
    },
    JobsDetails: {screen: JobsDetails},
  });
 
-
  export const AppScreenNavigator = TabNavigator({
-   //LoginFeedStack: {screen: LoginFeedStack},
+   //LoginFeedStack: {screen: LoginFeedStack}
    HomeFeedStack: {screen: HomeFeedStack},
    JobsTab: {screen: JobsFeedStack},
    EventsTab: {screen: FeedStack},
@@ -97,6 +84,19 @@
      swipingEnbled: 'true',
    }
  });
+
+ const AppNavigator = StackNavigator({
+   Login:{screen: Login,
+     navigationOptions:({navigation}) => ({
+      header: null
+    })},
+   AppScreenNavigator:{screen: AppScreenNavigator,
+    navigationOptions:({navigation}) => ({
+    header: null})
+
+
+   // navigationOptions:{ header:{ visible:false },
+ }});
 
  AppScreenNavigator.navigationOptions = {
    title: "App"

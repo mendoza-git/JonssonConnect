@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
+ import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View, ImageBackground } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, Col, CardItem, Grid, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, Row, H1, H2, H3 } from 'native-base';
  import firebaseDbh from '../App';
@@ -56,41 +56,39 @@
        );
      }
      return (
-       <Container>
+       <Container style={styles.containerStyle}>
         <Content>
-        <Image source={{uri: 'https://www.matrixc.com/wp-content/uploads/2017/10/ea-promotion-banner.jpg'}} style={{ height: 100, width: null }}>
-        </Image>
-        <Card style={{flex: 0}}>
-            <CardItem>
-              <Body>
-                <Text style={styles.nameStyle}>{this.props.navigation.state.params.rowData.companyName}</Text>
-                <Text style={styles.hostStyle}>{this.props.navigation.state.params.rowData.positionTitle}</Text>
-                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                <Text style={{fontSize: 14, fontWeight: '800'}}>Apply today at</Text>
-                <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                <Text style={styles.applicationStyle}>{this.props.navigation.state.params.rowData.applicationURL}</Text>
-              </Body>
-            </CardItem>
-            <CardItem>
-              <Body>
-              <Text style={{fontSize: 14, fontWeight: '800'}}>Details</Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionOverview}</Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}>Qualifications</Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionQualifications}</Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}>Desired Majors</Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.desiredMajors}</Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}>Job-Type</Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.jobType}</Text>
-              </Body>
-            </CardItem>
+          <View style={styles.container2}>
+            <ImageBackground
+              style={styles.backdrop}
+              blurRadius={5}
+              source={{uri: this.props.navigation.state.params.rowData.backgroundURL}}>
+                <View style={styles.backdropView}>
+                  <Thumbnail square source={{uri: this.props.navigation.state.params.rowData.companyImageURL}} />
+                  <Text style={styles.positionheadline}>{this.props.navigation.state.params.rowData.positionTitle}</Text>
+                  <Text style={styles.companyheadline}>{this.props.navigation.state.params.rowData.companyName}</Text>
+                  <Text style={styles.locationheadline}>{this.props.navigation.state.params.rowData.jobLocation}</Text>
+                </View>
+            </ImageBackground>
+          </View>
+          <Card style={{ backgroundColor: '#f8f6f6'}}>
+            <Button full>
+              <Text style={{ fontSize: 14, fontWeight: '100'}}>Apply Now</Text>
+            </Button>
           </Card>
+          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}>Position Overview</Text>
+          <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionOverview}</Text>
+          <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}>Qualifications</Text>
+          <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionQualifications}</Text>
+          <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}>Desired Majors</Text>
+          <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+          <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.desiredMajors}</Text>
+          <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}>Job-Type</Text>
+          <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+          <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.jobType}</Text>
         </Content>
        </Container>
      )
@@ -98,11 +96,13 @@
  }
 
  const styles = StyleSheet.create({
-   applicationStyle: {
+  containerStyle: {
+     backgroundColor: '#FFFFFF',
+  },
+  applicationStyle: {
       fontWeight: '600',
       fontSize: 12,
-      color: '#104E8B',
-   },
+  },
   nameStyle: {
      fontWeight: '600',
      fontSize: 16,
@@ -110,31 +110,53 @@
   descriptionStyle: {
      fontWeight: '400',
      fontSize: 12,
+     paddingLeft: 15,
+     paddingTop: 10,
   },
   hostStyle: {
     fontSize: 12,
     color: '#808080',
   },
-  buttonStyle: {
-    fontSize: 12,
+  container2: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: null,
+    backgroundColor: '#FFFFFF'
   },
-  search: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
+  backdrop: {
+    paddingTop: 60,
+    width: null,
+    height: 230
   },
-  searchbarColor: {
-    backgroundColor: '#0039A6',
+  backdropView: {
+    height: 230,
+    width: 380,
+    backgroundColor: 'rgba(0,0,0,0)',
+    paddingLeft: 15
   },
-  searchButton: {
-    fontSize: 12,
-    color: '#ffffff',
+  positionheadline: {
+    fontSize: 18,
+    fontWeight: '100',
+    paddingTop: 5,
+    backgroundColor: 'rgba(0,0,0,0)',
+    color: 'white'
   },
+
+  companyheadline: {
+    fontSize: 16,
+    fontWeight: '100',
+    paddingTop: 5,
+    backgroundColor: 'rgba(0,0,0,0)',
+    color: 'white'
+  },
+
+  locationheadline: {
+    fontSize: 14,
+    fontWeight: '100',
+    paddingTop: 5,
+    backgroundColor: 'rgba(0,0,0,0)',
+    color: 'white'
+  },
+
 });
