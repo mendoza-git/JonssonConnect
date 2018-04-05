@@ -67,18 +67,10 @@ var DEMO_TOKEN = "0";
 
 export default class Login extends React.Component {
 
-  async componentDidMount() {
-   const { navigate } = this.props.navigation;
-   var DEMO_TOKEN_LOGIN = await AsyncStorage.getItem(DEMO_TOKEN);
-   if (DEMO_TOKEN_LOGIN === "1") {
-     this.props.navigation.navigate("Home")
-   }
-  };
-
   state = {
     access_token: undefined,
     expires_in: undefined,
-    refreshing: false,
+    refreshing: false
   }
 
   constructor(props) {
@@ -98,7 +90,6 @@ export default class Login extends React.Component {
       'picture-url',
       'id',
     ]
-
     const response = await fetch(`${baseApi}~:(${params.join(',')})?format=json`, {
       method: 'GET',
       headers: {
@@ -106,10 +97,14 @@ export default class Login extends React.Component {
       },
     })
     const payload = await response.json()
-    this.setState({ ...payload, refreshing: false })
-
-    this.props.navigation.navigate("HomeFeedStack");
-    //this.props.navigation.navigate("HomeFeedStack",{}, params: {data: "id"});
+    this.setState({
+       ...payload,
+        refreshing: false
+    })
+    AsyncStorage.setItem('lastName', this.state.lastName),
+    AsyncStorage.setItem('firstName', this.state.firstName),
+    AsyncStorage.setItem('email', this.state.emailAddress),
+    this.props.navigation.navigate("HomeFeedStack")
   }
 
   renderItem(label, value) {
@@ -149,22 +144,6 @@ export default class Login extends React.Component {
               <Button title="Login in" onPress={() => this.modal.open()} />
             </View>
           )}
-
-        {refreshing && <ActivityIndicator size="large" />}
-
-        {emailAddress && (
-          <View style={styles.userContainer}>
-            {this.renderItem('Email', emailAddress)}
-            <Image
-              style={{width: 50, height: 50}}
-              source={{uri: pictureUrl}}
-            />
-            {this.renderItem('First name', firstName)}
-            {this.renderItem('Last name', lastName)}
-            {this.renderItem('Summary', summary)}
-            {this.renderItem('ID', id)}
-          </View>
-        )}
       </View>
     )
   }

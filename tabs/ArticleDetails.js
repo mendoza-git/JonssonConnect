@@ -40,7 +40,7 @@
      tabBarIcon: ({ tintcolor }) => (
        <Image
         source={require('../images/homeicon.png')}
-        style={{width: 22, height: 22}}>
+        style={{width: 21, height: 21}}>
        </Image>
      )
    }

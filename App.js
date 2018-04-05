@@ -69,7 +69,7 @@
  });
 
  export const AppScreenNavigator = TabNavigator({
-   //LoginFeedStack: {screen: LoginFeedStack}
+   //LoginFeedStack: {screen: LoginFeedStack},
    HomeFeedStack: {screen: HomeFeedStack},
    JobsTab: {screen: JobsFeedStack},
    EventsTab: {screen: FeedStack},
@@ -93,8 +93,6 @@
    AppScreenNavigator:{screen: AppScreenNavigator,
     navigationOptions:({navigation}) => ({
     header: null})
-
-
    // navigationOptions:{ header:{ visible:false },
  }});
 
@@ -102,4 +100,4 @@
    title: "App"
  };
 
- export default AppScreenNavigator
+ export default AppNavigator

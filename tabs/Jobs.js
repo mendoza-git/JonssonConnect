@@ -46,8 +46,6 @@
      )
    }
 
-
-
    render() {
      if (this.state.isLoading) {
        return (
@@ -119,18 +117,19 @@
     backgroundColor: '#FFFFFF',
   },
   companyNameStyle: {
-    fontWeight: '500',
+    fontWeight: '100',
     fontSize: 12,
     paddingTop: 3,
   },
   positionTitleStyle: {
-     fontWeight: '800',
+     fontWeight: '500',
      fontSize: 14,
   },
   jobLocationStyle: {
      fontSize: 12,
      color: '#808080',
      paddingTop: 3,
+     fontWeight: '100'
   },
   buttonStyle: {
     fontSize: 12,

@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
+ import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import firebaseDbh from '../App';
@@ -59,55 +59,18 @@
        <Container style={styles.containerStyle}>
         <Content>
         <Image source={require('../images/jceventsbanner.png')} style={{ height: 180, width: null }}></Image>
+        <Content style={{ backgroundColor: '#f8f6f6'}}>
+          <Text style={styles.colorHeader}>Upcoming<Text style={styles.bigHeader}> Events</Text> </Text>
+          <Text style={{fontWeight: '800', color: '#0039A6', paddingLeft: 15}}>________</Text>
+        </Content>
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
-               <Card>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmfBRR5T0D2xN1IBPDFLC-c36Q04Rq-gc4sO-n7R5nsujLyASp7Q'}} />
-                    <Body>
-                    <Text style={styles.hostStyle}>
-                      {rowData.hostedBy} :
-                    </Text>
-                    <Text style={styles.nameStyle}>
-                      {rowData.eventName}
-                    </Text>
-                    <Text style={styles.eventNameStyle}>
-                      {rowData.eventDate} | {rowData.eventLocation}
-                    </Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem cardBody>
-                  <Image source={{uri: rowData.eventImageURL}} style={{height: 100, width: null, flex: 1}}/>
-                </CardItem>
-                <CardItem>
-                  <Left>
-                    <Button transparent info>
-                    <Text style={styles.buttonStyle}>
-                      Attending
-                    </Text>
-                    </Button>
-                  </Left>
-                  <Body>
-                    <Button transparent primary>
-                    <Text style={styles.buttonStyle}>
-                      Interested
-                    </Text>
-                    </Button>
-                  </Body>
-                  <Right>
-                  <Button transparent success onPress={() => this.props.navigation.navigate("EventDetails", {rowData})}>
-                  <Text style={styles.buttonStyle}>
-                    Details
-                  </Text>
-                  </Button>
-                  </Right>
-                </CardItem>
-              </Card>
+               <TouchableHighlight onPress={() => this.props.navigation.navigate("EventDetails", {rowData})}>
+                <Image source={{uri: rowData.eventImageURL}} style={{height: 150, width: null, flex: 1}}/>
+               </TouchableHighlight>
              )
            }}
          />
@@ -118,6 +81,19 @@
  }
 
  const styles = StyleSheet.create({
+  bigHeader: {
+     fontSize: 18,
+     fontWeight: '800',
+     paddingTop: 10,
+     paddingLeft: 15,
+  },
+  colorHeader: {
+     fontSize: 18,
+     fontWeight: '800',
+     paddingTop: 10,
+     paddingLeft: 15,
+     color: '#0039A6',
+  },
   containerStyle: {
      backgroundColor: '#F6F6F6',
   },

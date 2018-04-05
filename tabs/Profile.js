@@ -4,10 +4,9 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, TextInput, View } from 'react-native';
+ import { ActivityIndicator, AsyncStorage, Image, ListView, FlatList, StyleSheet, TextInput, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Tab, Tabs, Text, Title, Button, Left, Body, Right, H1, H2, H3, } from 'native-base';
-
  import * as firebase from 'firebase';
 
  export default class Profile extends Component {
@@ -18,28 +17,21 @@
      }
    }
 
-   componentDidMount() {
-    return fetch('https://jonssonconnect.firebaseio.com/.json')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.setState({
-          isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson.Articles),
-        }, function() {
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
+   async componentDidMount() {
+     this.setState({
+       firstName: await AsyncStorage.getItem('firstName'),
+       lastName: await AsyncStorage.getItem('lastName'),
+       email: await AsyncStorage.getItem('email'),
+       isLoading: false
+     });
+   }
 
    static navigationOptions = {
      tabBarLabel: 'Profile',
      tabBarIcon: ({ tintcolor }) => (
        <Image
-        source={require('../images/profileicon.png')}
-        style={{width: 22, height: 22}}>
+        source={require('../images/temocicon.png')}
+        style={{width: 32, height: 32}}>
        </Image>
      )
    }
@@ -55,30 +47,9 @@
      return (
        <Container style={styles.containerStyle}>
         <Content>
-          <Text style={styles.colorHeader}>Top<Text style={styles.bigHeader}> News</Text> </Text>
-          <Image source={require('../images/jchomebanner.png')} style={{ height: 180, width: null }}></Image>
-         <ListView
-           dataSource={this.state.dataSource}
-           renderRow={(rowData) => {
-             const {uri} = rowData;
-             return (
-               <Content>
-              <Image source={{uri: rowData.articleImageURL}} style={{height: 200, width: null, flex: 1}}/>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Text style={styles.typeStyle}>
-                {rowData.articleType}
-              </Text>
-              <Text style={styles.summaryStyle}>
-                {rowData.articleSummary}
-              </Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-              <Button full bordered light onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})}>
-                <Text style={{fontSize: 10, fontWeight: '400', color: '#104E8B'}}>View Article</Text>
-              </Button>
-              </Content>
-             )
-           }}
-         />
+           <Text style={styles.colorHeader}>{ this.state.firstName.toString() }</Text>
+           <Text style={styles.colorHeader}>{ this.state.lastName.toString() }</Text>
+           <Text style={styles.colorHeader}>{ this.state.email.toString() }</Text>
          </Content>
        </Container>
      )
