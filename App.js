@@ -73,7 +73,14 @@
    HomeFeedStack: {screen: HomeFeedStack},
    JobsTab: {screen: JobsFeedStack},
    EventsTab: {screen: FeedStack},
-   ProfileTab: {screen: Profile},
+   ProfileTab: {
+     screen: Profile,
+     navigationOptions:({navigation}) => ({
+      title: "User Profile",
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#f8f6f6'},
+      headerTitleStyle: { fontSize: 18, fontWeight: '800' },
+    })
+   },
  }, {
    tabBarPosition : 'bottom',
    tabBarOptions : {
@@ -100,4 +107,4 @@
    title: "App"
  };
 
- export default AppNavigator
+ export default AppScreenNavigator

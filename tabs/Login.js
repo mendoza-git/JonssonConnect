@@ -104,6 +104,8 @@ export default class Login extends React.Component {
     AsyncStorage.setItem('lastName', this.state.lastName),
     AsyncStorage.setItem('firstName', this.state.firstName),
     AsyncStorage.setItem('email', this.state.emailAddress),
+    AsyncStorage.setItem('summary', this.state.summary),
+    AsyncStorage.setItem('userPhoto', this.state.pictureUrl),
     this.props.navigation.navigate("HomeFeedStack")
   }
 
@@ -137,8 +139,6 @@ export default class Login extends React.Component {
                 redirectUri="https://github.com/mendoza-git/JonssonConnect"
                 onSuccess= {
                   data => this.getUser(data)
-                  //AsyncStorage.setItem("DEMO_TOKEN", "1"),
-                  //() => this.props.navigation.navigate("HomeFeedStack")
                 }
               />
               <Button title="Login in" onPress={() => this.modal.open()} />

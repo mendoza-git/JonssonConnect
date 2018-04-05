@@ -22,6 +22,8 @@
        firstName: await AsyncStorage.getItem('firstName'),
        lastName: await AsyncStorage.getItem('lastName'),
        email: await AsyncStorage.getItem('email'),
+       summary: await AsyncStorage.getItem('summary'),
+       userPhoto: await AsyncStorage.getItem('userPhoto'),
        isLoading: false
      });
    }
@@ -47,9 +49,11 @@
      return (
        <Container style={styles.containerStyle}>
         <Content>
-           <Text style={styles.colorHeader}>{ this.state.firstName.toString() }</Text>
-           <Text style={styles.colorHeader}>{ this.state.lastName.toString() }</Text>
-           <Text style={styles.colorHeader}>{ this.state.email.toString() }</Text>
+          <Card style={styles.cardStyle}>
+          <Thumbnail large style={{ paddingTop: 30 }} source={{uri: this.state.userPhoto.toString() }} />
+           <Text style={{ paddingTop: 30, fontWeight:'100' }}>{ this.state.firstName.toString() } { this.state.lastName.toString() }</Text>
+           <Text style={{ paddingTop: 20, fontSize: 12, paddingLeft: 15, paddingRight: 15, fontWeight:'100' }}>{ this.state.summary.toString() }</Text>
+          </Card>
          </Content>
        </Container>
      )
@@ -60,89 +64,8 @@
   containerStyle: {
     backgroundColor: '#F6F6F6',
   },
-  hostStyle: {
-    fontWeight: '800',
-    fontSize: 14,
-  },
-
   cardStyle: {
-    paddingLeft: 10,
-  },
-  nameStyle: {
-   fontWeight: '600',
-   fontSize: 14,
-  },
-  eventNameStyle: {
-    fontSize: 12,
-  },
-  bigHeader: {
-    fontSize: 28,
-    fontWeight: '800',
-    paddingTop: 10,
-    paddingBottom: 5,
-    paddingLeft: 10,
-  },
-  colorHeader: {
-    fontSize: 28,
-    fontWeight: '800',
-    paddingTop: 10,
-    paddingBottom: 5,
-    paddingLeft: 10,
-    color: '#C75B12',
-  },
-  jonssonHeader: {
-    fontSize: 24,
-    fontWeight: '800',
-    paddingBottom: 20,
-    paddingLeft: 10,
-  },
-  eventDescriptionStyle: {
-    fontSize: 10,
-  },
-  typeStyle: {
-    fontSize: 10,
-    fontWeight: '100',
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingRight: 5,
-    color: '#0085c2',
-  },
-  summaryStyle: {
-    fontSize: 18,
-    fontWeight: '800',
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingRight: 5,
-  },
-  buttonStyle: {
-    fontSize: 12,
-  },
-  search: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-  searchbarColor: {
-    backgroundColor: '#00A1DE',
-  },
-  searchButton: {
-    fontSize: 12,
-    color: '#ffffff',
-  },
-  textInput: {
-    height: 30,
-    backgroundColor: '#ffffff',
-    borderWidth: 1,
-    borderColor: '#FFFFFF',
-    marginBottom: 5,
-    marginVertical: 5,
-    marginHorizontal: 5,
-  },
+    paddingTop: 30,
+    alignItems: 'center',
+  }
 });

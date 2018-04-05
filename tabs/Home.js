@@ -1,5 +1,5 @@
 /**
- * JonssonConnect Events Page
+ * JonssonConnect Home Page
  * https://github.com/facebook/react-native
  * @flow
  */
@@ -16,7 +16,7 @@
      super(props);
      this.state = {
        isLoading: true,
-       refreshing: false
+       refreshing: false,
      }
    }
 
@@ -32,7 +32,11 @@
           });
       })
       .catch((error) => {
-        console.error(error);
+        //console.error(error);
+        this.setState({
+          isLoading: false,
+          networkFailed: true,
+        })
       });
     }
 
