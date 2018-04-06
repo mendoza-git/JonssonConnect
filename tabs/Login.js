@@ -76,6 +76,9 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props)
     StatusBar.setHidden(true)
+    if(AsyncStorage.getItem('token')) {
+      this.props.navigation.navigate("HomeFeedStack")
+    }
   }
 
   async getUser({ access_token }) {
@@ -106,6 +109,7 @@ export default class Login extends React.Component {
     AsyncStorage.setItem('email', this.state.emailAddress),
     AsyncStorage.setItem('summary', this.state.summary),
     AsyncStorage.setItem('userPhoto', this.state.pictureUrl),
+    AsyncStorage.setItem('token', "1"),
     this.props.navigation.navigate("HomeFeedStack")
   }
 

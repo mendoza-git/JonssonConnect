@@ -107,4 +107,5 @@
    title: "App"
  };
 
- export default AppScreenNavigator
+ export default AppNavigator
+ //export default AppScreenNavigator

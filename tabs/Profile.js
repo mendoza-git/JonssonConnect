@@ -24,6 +24,7 @@
        email: await AsyncStorage.getItem('email'),
        summary: await AsyncStorage.getItem('summary'),
        userPhoto: await AsyncStorage.getItem('userPhoto'),
+       token: await AsyncStorage.getItem('token'),
        isLoading: false
      });
    }
@@ -53,6 +54,7 @@
           <Thumbnail large style={{ paddingTop: 30 }} source={{uri: this.state.userPhoto.toString() }} />
            <Text style={{ paddingTop: 30, fontWeight:'100' }}>{ this.state.firstName.toString() } { this.state.lastName.toString() }</Text>
            <Text style={{ paddingTop: 20, fontSize: 12, paddingLeft: 15, paddingRight: 15, fontWeight:'100' }}>{ this.state.summary.toString() }</Text>
+           <Text style={{ paddingTop: 20, fontSize: 12, paddingLeft: 15, paddingRight: 15, fontWeight:'100' }}> LOGIN STATUS: { this.state.token }</Text>
           </Card>
          </Content>
        </Container>
