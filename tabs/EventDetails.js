@@ -4,12 +4,23 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
+ import { ActivityIndicator, AsyncStorage, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, Col, CardItem, Grid, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, Row, H1, H2, H3 } from 'native-base';
- import firebaseDbh from '../App';
- import firebaseListNews from '../App';
+
+ //import firebaseApp from '../App';
  import * as firebase from 'firebase';
+
+ // Initialize Firebase
+ var config = {
+   apiKey: "AIzaSyAt7rZyHL1GNFonaUquH0p4QyQFXi1lz6U",
+   authDomain: "jonssonconnect.firebaseapp.com",
+   databaseURL: "https://jonssonconnect.firebaseio.com",
+   projectId: "jonssonconnect",
+   storageBucket: "jonssonconnect.appspot.com",
+ };
+
+ const firebaseApp = firebase.initializeApp(config);
 
  export default class EventDetails extends Component {
 
@@ -20,21 +31,12 @@
      }
    }
 
-   componentDidMount() {
-    return fetch('https://jonssonconnect.firebaseio.com/.json')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.setState({
-          isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson.Events),
-        }, function() {
-          // do something with new state
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+   async componentDidMount() {
+    this.setState({
+      userID: await AsyncStorage.getItem('userID'),
+      userEmail: await AsyncStorage.getItem('email'),
+      isLoading: false
+    });
   }
 
    static navigationOptions = {
@@ -63,7 +65,7 @@
         <Card style={{flex: 0}}>
             <CardItem>
               <Body>
-                <Text style={styles.nameStyle}>{this.props.navigation.state.params.rowData.eventName}</Text>
+                <Text style={styles.nameStyle}>{this.props.navigation.state.params.rowData.eventTitle}</Text>
                 <Text style={styles.hostStyle}>{this.props.navigation.state.params.rowData.hostedBy}</Text>
               </Body>
             </CardItem>
@@ -76,9 +78,45 @@
             </CardItem>
             <CardItem>
               <Body>
-              <Button block bordered>
-              <Text style={{fontSize: 12, fontWeight: '400'}}>Attend</Text>
+              <Button full style={styles.AttendingbuttonStyle}
+              onPress={() => {
+                var query = firebaseApp.database().ref('/Events').orderByChild('eventTitle').equalTo(this.props.navigation.state.params.rowData.eventTitle);
+                query.once( 'value', data => {
+                    data.forEach(userSnapshot => {
+                        let key = userSnapshot.key;
+                        var userID = this.state.userID.toString();
+                        var userEmail = this.state.userEmail.toString();
+                        this.eventsRef = firebaseApp.database().ref('Events/' + key).child('usersAttending').child(userID).set(userEmail);
+                        this.attendingCountRef = firebaseApp.database().ref('Events/' + key).child('attendingCount');
+                        var attendingCountRef = firebaseApp.database().ref('Events/' + key).child('attendingCount');
+                          attendingCountRef.transaction(function (current_value) {
+                            return (current_value || 0) + 1;
+                        });
+                    });
+                });
+              }}>
+                <Text style={{ fontSize: 14, fontWeight: '500'}}>Attending</Text>
               </Button>
+              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Button full style={styles.InterestedbuttonStyle}
+              onPress={() => {
+                var query = firebaseApp.database().ref('/Events').orderByChild('eventTitle').equalTo(this.props.navigation.state.params.rowData.eventTitle);
+                query.once( 'value', data => {
+                    data.forEach(userSnapshot => {
+                        let key = userSnapshot.key;
+                        var userID = this.state.userID.toString();
+                        var userEmail = this.state.userEmail.toString();
+                        this.eventsRef = firebaseApp.database().ref('Events/' + key).child('usersInterested').child(userID).set(userEmail);
+                        var interestedCountRef = firebaseApp.database().ref('Events/' + key).child('interestedCount');
+                          interestedCountRef.transaction(function (current_value) {
+                            return (current_value || 0) + 1;
+                        });
+                    });
+                });
+              }}>
+                <Text style={{ fontSize: 14, fontWeight: '500'}}>Interested</Text>
+              </Button>
+
               </Body>
             </CardItem>
           </Card>
@@ -93,6 +131,14 @@
      fontWeight: '600',
      fontSize: 16,
   },
+  InterestedbuttonStyle: {
+     backgroundColor: '#5BC6E8',
+     height: 40,
+  },
+  AttendingbuttonStyle: {
+     backgroundColor: '#40E0D0',
+     height: 40,
+  },
   descriptionStyle: {
      fontWeight: '400',
      fontSize: 12,
@@ -100,9 +146,6 @@
   hostStyle: {
     fontSize: 12,
     color: '#808080',
-  },
-  buttonStyle: {
-    fontSize: 12,
   },
   search: {
     backgroundColor: '#FFFFFF',

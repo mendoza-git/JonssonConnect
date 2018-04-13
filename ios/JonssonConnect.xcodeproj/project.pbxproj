@@ -559,6 +559,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		214E7C718EF44758BDCFD379 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,6 +636,7 @@
 				00E356EF1AD99517003FC87E /* JonssonConnectTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				214E7C718EF44758BDCFD379 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";

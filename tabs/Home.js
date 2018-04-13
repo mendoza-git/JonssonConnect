@@ -4,11 +4,12 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, RefreshControl, StyleSheet, TextInput, View, TouchableHighlight } from 'react-native';
+ import { ActivityIndicator, Image, ListView, ImageBackground, FlatList, RefreshControl, StyleSheet, TextInput, View, TouchableHighlight } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Tab, Tabs, Text, Title, Button, Left, Body, Right, H1, H2, H3, } from 'native-base';
- import Jobs from './Jobs'
  import * as firebase from 'firebase';
+ import firebaseApp from '../App';
+ import rootRef from '../App';
 
  export default class Home extends Component {
 
@@ -22,12 +23,15 @@
 
    componentDidMount() {
      return fetch('https://jonssonconnect.firebaseio.com/.json')
+     //return fetch('https://jonssonconnect.firebaseio.com/Articles.json')
+     //return fetch('/Users/mendoza/Downloads/articles.json')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
           isLoading: false,
           dataSource: ds.cloneWithRows(responseJson.Articles),
+          //dataSource: ds.cloneWithRows(responseJson.filter(x => x.articleName == 'UT Dallas Team Wins Grand Prize at Texas A&M Hackathon')),
         }, function() {
           });
       })
@@ -40,25 +44,29 @@
       });
     }
 
-    _onRefresh() {
-      this.setState({refreshing: true});
-      fetchData().then(() => {
-        return fetch('https://jonssonconnect.firebaseio.com/.json')
-         .then((response) => response.json())
-         .then((responseJson) => {
-           let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-           this.setState({
-             isLoading: false,
-             dataSource: ds.cloneWithRows(responseJson.Articles),
-           }, function() {
-             });
+
+    firstSearch() {
+      //return fetch('https://jonssonconnect.firebaseio.com/.json')
+      //return fetch('https://jonssonconnect.firebaseio.com/Articles.json')
+      return fetch('/Users/mendoza/Downloads/articles.json')
+       .then((response) => response.json())
+       .then((responseJson) => {
+         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+         this.setState({
+           isLoading: false,
+           //dataSource: ds.cloneWithRows(responseJson.Articles),
+           dataSource: ds.cloneWithRows(responseJson.filter(x => x.articleName == 'UT Dallas Team Wins Grand Prize at Texas A&M Hackathon')),
+         }, function() {
+           });
+       })
+       .catch((error) => {
+         //console.error(error);
+         this.setState({
+           isLoading: false,
+           networkFailed: true,
          })
-         .catch((error) => {
-           console.error(error);
-         });
-        this.setState({refreshing: false});
-      });
-    }
+       });
+     }
 
     static navigationOptions = {
       tabBarLabel: 'Home',
@@ -81,37 +89,56 @@
      return (
        <Container style={styles.containerStyle}>
         <Content>
-          <Image source={require('../images/jchomebanner.png')} style={{ height: 180, width: null }}></Image>
-            <Content style={{ backgroundColor: '#f8f6f6'}}>
-              <Text style={styles.colorHeader}>Top<Text style={styles.bigHeader}> News</Text> </Text>
-              <Text style={{fontWeight: '800', color: '#C75B12', paddingLeft: 15}}>________</Text>
-            </Content>
-            <ListView
-            refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh.bind(this)}
-                />
-              }
-              dataSource={this.state.dataSource}
-              renderRow={(rowData) => {
-                const {uri} = rowData;
-                return (
-                 <Content>
-                   <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-                   <Text style={{color: rowData.articleColor, fontSize: 10, fontWeight: '100', paddingLeft: 15, paddingRight: 5, paddingTop: 10, }}>
-                     {rowData.articleType}
-                   </Text>
-                   <Text onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})} style={styles.nameStyle}>
-                       {rowData.articleName}
-                   </Text>
-                   <Text style={styles.dateStyle}>
-                       {rowData.postedOn}
-                   </Text>
-                 </Content>
-                )
-              }}
-            />
+          <View style={styles.container2}>
+            <ImageBackground
+              style={styles.backdrop}
+              blurRadius={1}
+              source={{uri: 'https://images.unsplash.com/photo-1487235829740-e0ac5a286e1c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=310f7bfbbc76086f8259a5d197fcffb4&auto=format&fit=crop&w=2248&q=80'}}>
+                <View style={styles.backdropView}>
+                  <Text style={{ color: '#FFFFFF', fontSize: 24, fontWeight: '800', paddingBottom: 10}}>Search the News.</Text>
+                  <TextInput rounded
+                    style={{
+                       fontSize: 18,
+                       alignItems: 'center',
+                       justifyContent: 'center',
+                       paddingTop: 10,
+                       paddingBottom: 10,
+                       width: 300,
+                       backgroundColor: '#FFFFFF',
+                       opacity: .9,
+                       borderRadius:10,
+                     }}
+                    placeholder=' Search...'
+                    onChangeText={(text) => this.setState({searchText:text})}
+                    onSubmitEditing={() => this.firstSearch()}
+                  />
+                </View>
+            </ImageBackground>
+          </View>
+          <Content style={{ backgroundColor: '#f8f6f6'}}>
+            <Text style={styles.colorHeader}>Top<Text style={styles.bigHeader}> News</Text> </Text>
+            <Text style={{fontWeight: '800', color: '#C75B12', paddingLeft: 15}}>________</Text>
+          </Content>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={(rowData) => {
+              const {uri} = rowData;
+              return (
+               <Content>
+                 <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+                 <Text style={{color: rowData.articleColor, fontSize: 10, fontWeight: '100', paddingLeft: 15, paddingRight: 5, paddingTop: 10, }}>
+                   {rowData.articleType}
+                 </Text>
+                 <Text onPress={() => this.props.navigation.navigate("ArticleDetails", {rowData})} style={styles.nameStyle}>
+                     {rowData.articleName}
+                 </Text>
+                 <Text style={styles.dateStyle}>
+                     {rowData.postedOn}
+                 </Text>
+               </Content>
+              )
+            }}
+          />
          </Content>
        </Container>
      )
@@ -121,6 +148,25 @@
  const styles = StyleSheet.create({
   containerStyle: {
     backgroundColor: '#FFFFFF',
+  },
+  container2: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: null,
+    backgroundColor: '#FFFFFF'
+  },
+  backdrop: {
+    width: null,
+    height: 230
+  },
+  backdropView: {
+    height: 230,
+    width: 380,
+    backgroundColor: 'rgba(0,0,0,0)',
+    paddingLeft: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   hostStyle: {
     fontWeight: '800',

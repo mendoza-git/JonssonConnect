@@ -8,6 +8,8 @@
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Tab, Tabs, Text, Title, Button, Left, Body, Right, H1, H2, H3, } from 'native-base';
  import * as firebase from 'firebase';
+ import firebaseApp from '../App';
+ import rootRef from '../App';
 
  export default class Profile extends Component {
   constructor(props) {
@@ -22,9 +24,11 @@
        firstName: await AsyncStorage.getItem('firstName'),
        lastName: await AsyncStorage.getItem('lastName'),
        email: await AsyncStorage.getItem('email'),
+       userID: await AsyncStorage.getItem('userID'),
        summary: await AsyncStorage.getItem('summary'),
        userPhoto: await AsyncStorage.getItem('userPhoto'),
        token: await AsyncStorage.getItem('token'),
+       checker: await AsyncStorage.getItem('checker'),
        isLoading: false
      });
    }
@@ -53,8 +57,8 @@
           <Card style={styles.cardStyle}>
           <Thumbnail large style={{ paddingTop: 30 }} source={{uri: this.state.userPhoto.toString() }} />
            <Text style={{ paddingTop: 30, fontWeight:'100' }}>{ this.state.firstName.toString() } { this.state.lastName.toString() }</Text>
+           <Text style={{ paddingTop: 20, fontSize: 12, paddingLeft: 15, paddingRight: 15, fontWeight:'100' }}>{ this.state.userID.toString() }</Text>
            <Text style={{ paddingTop: 20, fontSize: 12, paddingLeft: 15, paddingRight: 15, fontWeight:'100' }}>{ this.state.summary.toString() }</Text>
-           <Text style={{ paddingTop: 20, fontSize: 12, paddingLeft: 15, paddingRight: 15, fontWeight:'100' }}> LOGIN STATUS: { this.state.token }</Text>
           </Card>
          </Content>
        </Container>

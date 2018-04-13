@@ -19,19 +19,6 @@
 
  import * as firebase from 'firebase';
 
- // Initialize Firebase
- var config = {
-   apiKey: "AIzaSyAt7rZyHL1GNFonaUquH0p4QyQFXi1lz6U",
-   authDomain: "jonssonconnect.firebaseapp.com",
-   databaseURL: "https://jonssonconnect.firebaseio.com",
-   projectId: "jonssonconnect",
-   storageBucket: "jonssonconnect.appspot.com",
- };
- const firebaseApp = firebase.initializeApp(config);
- // Create a reference with .ref() instead of new Firebase(url)
- const rootRef = firebase.database().ref();
- const jobsRef = rootRef.child('Jobs');
-
  export const HomeFeedStack = StackNavigator({
    Home: {
      screen: Home,
@@ -39,6 +26,7 @@
       title: "News Feed",
       headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#f8f6f6'},
       headerTitleStyle: { fontSize: 18, fontWeight: '800' },
+      header: null,
     })
    },
    ArticleDetails: {screen: ArticleDetails},
@@ -107,5 +95,5 @@
    title: "App"
  };
 
- export default AppNavigator
- //export default AppScreenNavigator
+ //export default AppNavigator
+ export default AppScreenNavigator

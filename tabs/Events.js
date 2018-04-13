@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
+ import { ActivityIndicator, AsyncStorage, Image, ListView, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import firebaseDbh from '../App';
@@ -29,7 +29,6 @@
           isLoading: false,
           dataSource: ds.cloneWithRows(responseJson.Events),
         }, function() {
-          // do something with new state
         });
       })
       .catch((error) => {
@@ -68,9 +67,21 @@
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
-               <TouchableHighlight onPress={() => this.props.navigation.navigate("EventDetails", {rowData})}>
-                <Image source={{uri: rowData.eventImageURL}} style={{height: 150, width: null, flex: 1}}/>
-               </TouchableHighlight>
+               <Content>
+                <List style={{ backgroundColor: '#FFFFFF'}}>
+                  <ListItem>
+                    <Body>
+                      <Text onPress={
+                        () => this.props.navigation.navigate("EventDetails", {rowData})}
+                         style={styles.nameStyle} style={{fontSize: 22, fontWeight: '100', paddingLeft: 15, paddingRight: 5, paddingTop: 10,
+                       }}>
+                        {rowData.eventTitle}
+                      </Text>
+                    </Body>
+                  </ListItem>
+                </List>
+               </Content>
+
              )
            }}
          />
