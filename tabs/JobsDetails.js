@@ -101,7 +101,6 @@
       fontWeight: '600',
       fontSize: 12,
   },
-
   buttonStyle: {
      backgroundColor: '#5BC6E8',
      height: 40,
