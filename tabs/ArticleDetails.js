@@ -35,15 +35,15 @@
       });
   }
 
-   static navigationOptions = {
-     tabBarLabel: 'Home',
-     tabBarIcon: ({ tintcolor }) => (
-       <Image
-        source={require('../images/homeicon.png')}
-        style={{width: 21, height: 21}}>
-       </Image>
-     )
-   }
+  static navigationOptions = {
+    tabBarLabel: 'Home',
+    tabBarIcon: ({ tintcolor }) => (
+      <Image
+       source={require('../images/temocicon.png')}
+       style={{width: 32, height: 32}}>
+      </Image>
+    )
+  }
 
    render() {
      if (this.state.isLoading) {

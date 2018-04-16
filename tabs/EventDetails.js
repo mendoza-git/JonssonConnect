@@ -12,7 +12,7 @@
  import * as firebase from 'firebase';
 
  // Initialize Firebase
- var config = {
+ export var config = {
    apiKey: "AIzaSyAt7rZyHL1GNFonaUquH0p4QyQFXi1lz6U",
    authDomain: "jonssonconnect.firebaseapp.com",
    databaseURL: "https://jonssonconnect.firebaseio.com",
@@ -20,14 +20,15 @@
    storageBucket: "jonssonconnect.appspot.com",
  };
 
- const firebaseApp = firebase.initializeApp(config);
+ export const firebaseApp = firebase.initializeApp(config);
 
  export default class EventDetails extends Component {
 
    constructor(props) {
      super(props);
      this.state = {
-       isLoading: true
+       isLoading: true,
+       buttonColor: '#40E0D0'
      }
    }
 
@@ -67,19 +68,29 @@
               <Body>
                 <Text style={styles.nameStyle}>{this.props.navigation.state.params.rowData.eventTitle}</Text>
                 <Text style={styles.hostStyle}>{this.props.navigation.state.params.rowData.hostedBy}</Text>
+                <View style={{flexDirection: "row"}}>
+                  <Text style={{ fontSize: 18, fontWeight: '100', color: '#3b5998', paddingLeft: 10, paddingRight: 125 }}>Attending</Text>
+                  <Text style={{ fontSize: 18, fontWeight: '100', color: '#3b5998', paddingLeft: 15 }}>Interested</Text>
+                </View>
+                <View style={{flexDirection: "row"}}>
+                  <Text style={{ fontSize: 18, fontWeight: '100', color: '#3b5998', paddingLeft: 35, paddingRight: 225, paddingTop: 10 }}>{this.props.navigation.state.params.rowData.attendingCount}</Text>
+                  <Text style={{ fontSize: 18, fontWeight: '100', color: '#3b5998', paddingLeft: 5, paddingTop: 10 }}>{this.props.navigation.state.params.rowData.interestedCount}</Text>
+                </View>
+
               </Body>
             </CardItem>
             <CardItem>
               <Body>
-              <Text style={{fontSize: 14, fontWeight: '800'}}>Details</Text>
-              <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
+              <Text style={{fontSize: 18, fontWeight: '800'}}>Details</Text>
+              <Text style={{fontSize: 14, fontWeight: '100'}}></Text>
               <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.eventDescription}</Text>
               </Body>
             </CardItem>
             <CardItem>
               <Body>
-              <Button full style={styles.AttendingbuttonStyle}
+              <Button full style={{ backgroundColor: this.state.buttonColor}}
               onPress={() => {
+                this.setState({ buttonColor: '#008000' });
                 var query = firebaseApp.database().ref('/Events').orderByChild('eventTitle').equalTo(this.props.navigation.state.params.rowData.eventTitle);
                 query.once( 'value', data => {
                     data.forEach(userSnapshot => {
@@ -128,8 +139,8 @@
 
  const styles = StyleSheet.create({
   nameStyle: {
-     fontWeight: '600',
-     fontSize: 16,
+     fontWeight: '800',
+     fontSize: 20,
   },
   InterestedbuttonStyle: {
      backgroundColor: '#5BC6E8',
@@ -140,7 +151,7 @@
      height: 40,
   },
   descriptionStyle: {
-     fontWeight: '400',
+     fontWeight: '100',
      fontSize: 12,
   },
   hostStyle: {

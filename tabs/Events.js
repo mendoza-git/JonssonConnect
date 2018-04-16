@@ -6,10 +6,11 @@
  import React, { Component } from 'react';
  import { ActivityIndicator, AsyncStorage, Image, ListView, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
- import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
- import firebaseDbh from '../App';
- import firebaseListNews from '../App';
+ import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Tabs, Tab, Text, Title, Button, Left, Body, Right, H1, H2, H3} from 'native-base';
  import * as firebase from 'firebase';
+
+ import firebaseApp from './EventDetails';
+ import config from './EventDetails';
 
  export default class Events extends Component {
 
@@ -36,6 +37,10 @@
       });
   }
 
+  async filterEvents() {
+
+  }
+
    static navigationOptions = {
      tabBarLabel: 'Events',
      tabBarIcon: ({ tintcolor }) => (
@@ -59,9 +64,35 @@
         <Content>
         <Image source={require('../images/jceventsbanner.png')} style={{ height: 180, width: null }}></Image>
         <Content style={{ backgroundColor: '#f8f6f6'}}>
-          <Text style={styles.colorHeader}>Upcoming<Text style={styles.bigHeader}> Events</Text> </Text>
-          <Text style={{fontWeight: '800', color: '#0039A6', paddingLeft: 15}}>________</Text>
         </Content>
+        {/*
+        <Tabs onchangeTab={this.filterEvents} style={{}} tabBarUnderlineStyle={{ backgroundColor: '#C75B12'}} tabBarPosition="bottom" >
+          <Tab
+            tabstyle={{ }}
+            textStyle={{fontSize: 13, fontWeight: '100'}}
+            activeTextStyle={{fontSize: 13, fontWeight: '100', color: '#C75B12'}}
+            heading='All Events'
+          >
+
+          </Tab>
+          <Tab
+            tabstyle={{ }}
+            textStyle={{fontSize: 13, fontWeight: '100'}}
+            activeTextStyle={{fontSize: 13, fontWeight: '100', color: '#C75B12'}}
+            heading='Most Popular'
+          >
+
+          </Tab>
+          <Tab
+            tabstyle={{ }}
+            textStyle={{fontSize: 13, fontWeight: '100'}}
+            activeTextStyle={{fontSize: 13, fontWeight: '100', color: '#C75B12'}}
+            heading='Newest'
+          >
+
+          </Tab>
+         </Tabs>
+         */}
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
@@ -71,12 +102,19 @@
                 <List style={{ backgroundColor: '#FFFFFF'}}>
                   <ListItem>
                     <Body>
-                      <Text onPress={
+                      <Text style={{fontWeight: '800', fontSize: 16}}>{rowData.eventTitle}</Text>
+                      <Text style={{fontWeight: '200', fontSize: 12, paddingTop: 5}}>{rowData.eventDate}</Text>
+                      <Text style={{fontWeight: '100', fontSize: 12, color: '#757575', paddingTop: 5}}>{rowData.eventLocation}</Text>
+                      <Text style={{fontWeight: '800', fontSize: 22}}></Text>
+                      <TouchableHighlight
+                        onPress={
                         () => this.props.navigation.navigate("EventDetails", {rowData})}
-                         style={styles.nameStyle} style={{fontSize: 22, fontWeight: '100', paddingLeft: 15, paddingRight: 5, paddingTop: 10,
-                       }}>
-                        {rowData.eventTitle}
-                      </Text>
+                        >
+                        <Image
+                          style={{ height: 220, width: null, borderRadius: 10}}
+                          source={{ uri: rowData.eventImageURL}}
+                        />
+                      </TouchableHighlight>
                     </Body>
                   </ListItem>
                 </List>

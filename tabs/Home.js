@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, ImageBackground, FlatList, RefreshControl, StyleSheet, TextInput, View, TouchableHighlight } from 'react-native';
+ import { ActivityIndicator, AsyncStorage, Image, ListView, ImageBackground, FlatList, RefreshControl, StyleSheet, TextInput, View, TouchableHighlight } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Tab, Tabs, Text, Title, Button, Left, Body, Right, H1, H2, H3, } from 'native-base';
  import * as firebase from 'firebase';
@@ -21,7 +21,12 @@
      }
    }
 
-   componentDidMount() {
+   async componentDidMount() {
+     this.setState({
+       firstName: await AsyncStorage.getItem('firstName'),
+       lastName: await AsyncStorage.getItem('lastName'),
+       userPhoto: await AsyncStorage.getItem('userPhoto'),
+     });
      return fetch('https://jonssonconnect.firebaseio.com/.json')
      //return fetch('https://jonssonconnect.firebaseio.com/Articles.json')
      //return fetch('/Users/mendoza/Downloads/articles.json')
@@ -45,38 +50,38 @@
     }
 
 
-    firstSearch() {
-      //return fetch('https://jonssonconnect.firebaseio.com/.json')
-      //return fetch('https://jonssonconnect.firebaseio.com/Articles.json')
-      return fetch('/Users/mendoza/Downloads/articles.json')
-       .then((response) => response.json())
-       .then((responseJson) => {
-         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-         this.setState({
-           isLoading: false,
-           //dataSource: ds.cloneWithRows(responseJson.Articles),
-           dataSource: ds.cloneWithRows(responseJson.filter(x => x.articleName == 'UT Dallas Team Wins Grand Prize at Texas A&M Hackathon')),
-         }, function() {
-           });
+  firstSearch() {
+    //return fetch('https://jonssonconnect.firebaseio.com/.json')
+    //return fetch('https://jonssonconnect.firebaseio.com/Articles.json')
+    return fetch('/Users/mendoza/Downloads/articles.json')
+     .then((response) => response.json())
+     .then((responseJson) => {
+       let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+       this.setState({
+         isLoading: false,
+         //dataSource: ds.cloneWithRows(responseJson.Articles),
+         dataSource: ds.cloneWithRows(responseJson.filter(x => x.articleName == 'UT Dallas Team Wins Grand Prize at Texas A&M Hackathon')),
+       }, function() {
+         });
+     })
+     .catch((error) => {
+       //console.error(error);
+       this.setState({
+         isLoading: false,
+         networkFailed: true,
        })
-       .catch((error) => {
-         //console.error(error);
-         this.setState({
-           isLoading: false,
-           networkFailed: true,
-         })
-       });
-     }
+     });
+   }
 
-    static navigationOptions = {
-      tabBarLabel: 'Home',
-       tabBarIcon: ({ tintcolor }) => (
-         <Image
-          source={require('../images/homeicon.png')}
-          style={{width: 21, height: 21}}>
-         </Image>
-       )
-     }
+   static navigationOptions = {
+     tabBarLabel: 'Home',
+     tabBarIcon: ({ tintcolor }) => (
+       <Image
+        source={require('../images/temocicon.png')}
+        style={{width: 32, height: 32}}>
+       </Image>
+     )
+   }
 
    render() {
      if (this.state.isLoading) {
@@ -86,16 +91,29 @@
          </View>
        );
      }
+     const monthNames = ["January", "February", "March", "April", "May", "June",
+       "July", "August", "September", "October", "November", "December"
+     ]
+
+     const date = new Date()
+     var month = monthNames[date.getMonth()]
+     var year = date.getFullYear()
+     var day = date.getDate()
+
      return (
        <Container style={styles.containerStyle}>
         <Content>
           <View style={styles.container2}>
             <ImageBackground
               style={styles.backdrop}
-              blurRadius={1}
-              source={{uri: 'https://images.unsplash.com/photo-1487235829740-e0ac5a286e1c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=310f7bfbbc76086f8259a5d197fcffb4&auto=format&fit=crop&w=2248&q=80'}}>
+              blurRadius={0}
+              source={{uri: 'https://images.unsplash.com/photo-1502679726485-931beda67f88?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=de463bf685e4e3df80b0957fd4a2fa1c&auto=format&fit=crop&w=2255&q=80'}}>
                 <View style={styles.backdropView}>
-                  <Text style={{ color: '#FFFFFF', fontSize: 24, fontWeight: '800', paddingBottom: 10}}>Search the News.</Text>
+                <Thumbnail style={{ paddingTop: 30 }} source={{uri: this.state.userPhoto.toString() }} />
+                  <Text style={{ color: '#FFFFFF', fontSize: 20, fontWeight: '300', paddingBottom: 5, paddingTop: 5}}>Hello, {this.state.firstName.toString()}.</Text>
+                  <Text style={{ color: '#FFFFFF', fontSize: 18, fontWeight: '100', paddingBottom: 5}}>Search the news for today,</Text>
+                  <Text style={{ color: '#FFFFFF', fontSize: 18, fontWeight: '800', paddingBottom: 15}}>{month} {day}, {year}</Text>
+                  {/*
                   <TextInput rounded
                     style={{
                        fontSize: 18,
@@ -105,19 +123,19 @@
                        paddingBottom: 10,
                        width: 300,
                        backgroundColor: '#FFFFFF',
-                       opacity: .9,
+                       opacity: .3,
                        borderRadius:10,
                      }}
-                    placeholder=' Search...'
+                    placeholderTextColor='black'
+                    placeholder='   Search...'
                     onChangeText={(text) => this.setState({searchText:text})}
                     onSubmitEditing={() => this.firstSearch()}
                   />
+                  */}
                 </View>
             </ImageBackground>
           </View>
           <Content style={{ backgroundColor: '#f8f6f6'}}>
-            <Text style={styles.colorHeader}>Top<Text style={styles.bigHeader}> News</Text> </Text>
-            <Text style={{fontWeight: '800', color: '#C75B12', paddingLeft: 15}}>________</Text>
           </Content>
           <ListView
             dataSource={this.state.dataSource}
@@ -158,7 +176,7 @@
   },
   backdrop: {
     width: null,
-    height: 230
+    height: 200
   },
   backdropView: {
     height: 230,

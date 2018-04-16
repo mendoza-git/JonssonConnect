@@ -22,11 +22,10 @@ import LinkedInModal from 'react-native-linkedin'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: '#011f4b',
+    backgroundColor: '#ffffff',
   },
   backdrop: {
     height: 475,
@@ -95,12 +94,14 @@ export default class Login extends React.Component {
     this.state = { isLoggedIn: false };
   }
 
-  componentDidMount() {
-
-  }
-
-  componentWillMount() {
-
+  async componentWillMount() {
+    let LOGIN_TOKEN = await AsyncStorage.getItem('LOGIN_TOKEN');
+    if (LOGIN_TOKEN == null){
+       // DO nothing and continue login process
+    }
+    else {
+       this.props.navigation.navigate("HomeFeedStack");
+    }
   }
 
   async getUser({ access_token }) {
@@ -127,12 +128,20 @@ export default class Login extends React.Component {
        ...payload,
         refreshing: false,
     })
+    let value = this.state.pictureUrl
+    if (value == null){
+       AsyncStorage.setItem('userPhoto', 'https://www.utdallas.edu/brand/files/Temoc_Orange.png')
+    }
+    else {
+       AsyncStorage.setItem('userPhoto', this.state.pictureUrl)
+    }
     AsyncStorage.setItem('lastName', this.state.lastName),
     AsyncStorage.setItem('firstName', this.state.firstName),
     AsyncStorage.setItem('email', this.state.emailAddress),
-    AsyncStorage.setItem('summary', this.state.summary),
-    AsyncStorage.setItem('userPhoto', this.state.pictureUrl),
+    //AsyncStorage.setItem('summary', this.state.summary),
+    //AsyncStorage.setItem('userPhoto', this.state.pictureUrl),
     AsyncStorage.setItem('userID', this.state.id),
+    AsyncStorage.setItem('LOGIN_TOKEN', "loggedIn"),
     AsyncStorage.getItem('loggedInStatus',
     (value) => {
       this.setState({ loggedInStatus: 'loggedIn' });
@@ -161,16 +170,15 @@ export default class Login extends React.Component {
     return (
       <View style={styles.container}>
         <ImageBackground
-         source={{ uri: 'https://images.unsplash.com/photo-1442876906995-6761040d1f0b?ixlib=rb-0.3.5&s=7c1e9f505b3facad6b70295fb4fe3dbe&auto=format&fit=crop&w=2100&q=80'}}
-         style={{ height: 475, width: 500}}
-         style={styles.backdrop}
-         blurRadius={1}>
-         <View style={styles.backdropView}>
-          <Image source={{ uri: 'https://www.utdallas.edu/brand/files/Temoc_Secondary_Blue.png'}} style={{ height: 110, width: 150, paddingTop: 100}}></Image>
-          <Text style={{ fontSize: 32, color: '#FFFFFF', fontWeight: '300'}}>Jonsson Connect </Text>
-          <Text style={{ fontSize: 22, color: '#FFFFFF', fontWeight: '200', paddingTop: 20}}>Begin exploring oppotunities only offered by the Jonsson School. </Text>
-          <Text style={{ fontSize: 8, position: "absolute", bottom: -150, color: '#FFFFFF'}}>Photo by Levi Price</Text>
-         </View>
+          style={{ height: 475, width: 500}}
+          style={styles.backdrop}
+          blurRadius={1}>
+          <View style={styles.backdropView}>
+            <Image source={{ uri: 'https://www.utdallas.edu/brand/files/Temoc_Orange.png'}} style={{ height: 180, width: 150, paddingTop: 100}}></Image>
+            <Text style={{ fontSize: 32, fontWeight: '800'}}>Jonsson <Text style={{ fontSize: 32, fontWeight: '100'}}>Connect </Text></Text>
+            <Text style={{ fontSize: 22, fontWeight: '200', paddingTop: 20}}>Begin exploring oppotunities only offered by the Jonsson School. </Text>
+            <Text style={{ fontSize: 8, position: "absolute", bottom: -150}}></Text>
+          </View>
         </ImageBackground>
         {!emailAddress &&
           !refreshing && (
@@ -189,7 +197,6 @@ export default class Login extends React.Component {
               />
             </View>
           )}
-
           <View style={styles.container}>
               <TouchableHighlight onPress={() => this.modal.open()}>
                 <Button onPress={() => this.modal.open()} style={{ width: 500}} rounded full primary>
@@ -197,11 +204,16 @@ export default class Login extends React.Component {
                 </Button>
               </TouchableHighlight>
               <Text style={{ fontSize: 10, fontWeight: '100'}}></Text>
-              <TouchableHighlight onPress={() => this.modal.open()}>
-                <Button style={{ width: 500}} full light><Text style={{ color: '#011f4b', fontWeight: '100', fontSize: 16}}>Download LinkedIn to Continue</Text></Button>
+              <TouchableHighlight>
+                <Button onPress={ ()=>{ Linking.openURL('https://engineering.utdallas.edu')}} style={{ width: 500}} full light>
+                  <Image style={{width: 25, height: 25}} source={require('../images/Temoc_Secondary_Blue.png')}></Image>
+                  <Text style={{ color: '#011f4b', fontWeight: '100', fontSize: 16}}>
+                    Visit the Erik Jonsson School Website
+                  </Text>
+                </Button>
               </TouchableHighlight>
           </View>
-          <Text style={{ color: '#FFFFFF', fontSize: 8, fontWeight: '100', position: "absolute", bottom: 0}}>Copyright © 2018, The Univerity of Texas at Dallas, all rights reserved.</Text>
+          <Text style={{ fontSize: 8, fontWeight: '100', position: "absolute", bottom: 20}}>Copyright © 2018, The Univerity of Texas at Dallas, all rights reserved.</Text>
       </View>
     )
   }
