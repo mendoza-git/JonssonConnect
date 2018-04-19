@@ -71,20 +71,20 @@
           </View>
           <Card style={{ backgroundColor: '#f8f6f6'}}>
             <Button full style={styles.buttonStyle} onPress={ ()=>{ Linking.openURL(this.props.navigation.state.params.rowData.applicationURL)}}>
-              <Text style={{ fontSize: 14, fontWeight: '500'}}>Apply Now</Text>
+              <Text style={{ fontSize: 14, fontWeight: '500'}}><Icon name='ios-link' style={{ fontSize: 14, color: '#ffffff'}}/> Apply Now</Text>
             </Button>
           </Card>
-          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}>Position Overview</Text>
+          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}><Icon name='ios-flash' style={{ fontSize: 14}}/> Position Overview</Text>
           <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionOverview}</Text>
           <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}>Qualifications</Text>
+          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}><Icon name='ios-stats' style={{ fontSize: 14}}/> Qualifications</Text>
           <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.positionQualifications}</Text>
           <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}>Desired Majors</Text>
+          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}><Icon name='ios-school' style={{ fontSize: 14}}/> Desired Majors</Text>
           <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
           <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.desiredMajors}</Text>
           <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
-          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}>Job-Type</Text>
+          <Text style={{fontSize: 14, fontWeight: '800', paddingLeft: 15, paddingTop: 10}}><Icon name='ios-alarm' style={{ fontSize: 14}}/> Job-Type</Text>
           <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
           <Text style={styles.descriptionStyle}>{this.props.navigation.state.params.rowData.jobType}</Text>
         </Content>

@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, AsyncStorage, Image, ListView, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
+ import { ActivityIndicator, AsyncStorage, Image, ListView, Linking, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Tabs, Tab, Text, Title, Button, Left, Body, Right, H1, H2, H3} from 'native-base';
  import * as firebase from 'firebase';
@@ -42,12 +42,18 @@
   }
 
    static navigationOptions = {
+     headerRight:
+     <Button transparent onPress={() =>
+       Linking.openURL('https://alumni.utdallas.edu/events')
+     }
+     >
+     <Icon name='ios-calendar-outline' />
+      </Button>,
      tabBarLabel: 'Events',
      tabBarIcon: ({ tintcolor }) => (
-       <Image
-        source={require('../images/eventsicon.png')}
-        style={{width: 22, height: 22}}>
-       </Image>
+       <Icon
+       name='ios-calendar-outline'
+       color={ tintcolor} />
      )
    }
 
@@ -62,9 +68,15 @@
      return (
        <Container style={styles.containerStyle}>
         <Content>
-        <Image source={require('../images/jceventsbanner.png')} style={{ height: 180, width: null }}></Image>
         <Content style={{ backgroundColor: '#f8f6f6'}}>
         </Content>
+        <Card>
+          <CardItem style={{ borderLeftColor: '#3e9876', borderLeftWidth: 4, borderRightColor: '#3e9876', borderRightWidth: 4}}>
+            <Body>
+              <Text style={{ fontSize: 22, fontWeight: '800'}}><Icon name='ios-flame' style={{ fontSize: 22, color: '#d64d4d'}}/>  Find Events</Text>
+            </Body>
+          </CardItem>
+        </Card>
         {/*
         <Tabs onchangeTab={this.filterEvents} style={{}} tabBarUnderlineStyle={{ backgroundColor: '#C75B12'}} tabBarPosition="bottom" >
           <Tab
@@ -98,13 +110,13 @@
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
-               <Content>
+               <Content style={{ borderLeftColor: '#3e9876', borderLeftWidth: 3}}>
                 <List style={{ backgroundColor: '#FFFFFF'}}>
                   <ListItem>
                     <Body>
-                      <Text style={{fontWeight: '800', fontSize: 16}}>{rowData.eventTitle}</Text>
-                      <Text style={{fontWeight: '200', fontSize: 12, paddingTop: 5}}>{rowData.eventDate}</Text>
-                      <Text style={{fontWeight: '100', fontSize: 12, color: '#757575', paddingTop: 5}}>{rowData.eventLocation}</Text>
+                      <Text style={{fontWeight: '800', fontSize: 16}}><Icon name='ios-ionitron-outline' style={{ fontSize: 16, color: '#5d5d5d'}}/> {rowData.eventTitle}</Text>
+                      <Text style={{fontWeight: '200', fontSize: 12, paddingTop: 5}}><Icon name='ios-calendar-outline' style={{ fontSize: 12, color: '#5d5d5d'}}/> {(Date(rowData.eventDate))}</Text>
+                      <Text style={{fontWeight: '100', fontSize: 12, color: '#757575', paddingTop: 5}}><Icon name='ios-pin-outline' style={{ fontSize: 12, color: '#5d5d5d'}}/> {rowData.eventLocation}</Text>
                       <Text style={{fontWeight: '800', fontSize: 22}}></Text>
                       <TouchableHighlight
                         onPress={

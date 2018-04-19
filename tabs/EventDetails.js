@@ -69,8 +69,8 @@
                 <Text style={styles.nameStyle}>{this.props.navigation.state.params.rowData.eventTitle}</Text>
                 <Text style={styles.hostStyle}>{this.props.navigation.state.params.rowData.hostedBy}</Text>
                 <View style={{flexDirection: "row"}}>
-                  <Text style={{ fontSize: 18, fontWeight: '100', color: '#3b5998', paddingLeft: 10, paddingRight: 125 }}>Attending</Text>
-                  <Text style={{ fontSize: 18, fontWeight: '100', color: '#3b5998', paddingLeft: 15 }}>Interested</Text>
+                  <Text style={{ fontSize: 18, fontWeight: '100', color: '#3b5998', paddingLeft: 10, paddingRight: 125 }}><Icon name='ios-flame' style={{ fontSize: 18, color: '#f37735'}}/> Attending</Text>
+                  <Text style={{ fontSize: 18, fontWeight: '100', color: '#3b5998', paddingLeft: 15 }}> <Icon name='ios-heart' style={{ fontSize: 18, color: '#d11141'}}/> Interested</Text>
                 </View>
                 <View style={{flexDirection: "row"}}>
                   <Text style={{ fontSize: 18, fontWeight: '100', color: '#3b5998', paddingLeft: 35, paddingRight: 225, paddingTop: 10 }}>{this.props.navigation.state.params.rowData.attendingCount}</Text>
@@ -106,7 +106,7 @@
                     });
                 });
               }}>
-                <Text style={{ fontSize: 14, fontWeight: '500'}}>Attending</Text>
+                <Text style={{ fontSize: 14, fontWeight: '500'}}><Icon name='ios-flame' style={{ fontSize: 14, color: '#ffffff'}}/> Attending</Text>
               </Button>
               <Text style={{fontSize: 14, fontWeight: '800'}}></Text>
               <Button full style={styles.InterestedbuttonStyle}
@@ -125,7 +125,7 @@
                     });
                 });
               }}>
-                <Text style={{ fontSize: 14, fontWeight: '500'}}>Interested</Text>
+                <Text style={{ fontSize: 14, fontWeight: '500'}}> <Icon name='ios-heart' style={{ fontSize: 14, color: '#ffffff'}}/> Interested</Text>
               </Button>
 
               </Body>

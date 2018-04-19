@@ -37,12 +37,18 @@
   }
 
    static navigationOptions = {
+     headerRight:
+     <Button transparent onPress={() =>
+       Linking.openURL('https://www.utdallas.edu/career/cometcareers/')
+     }
+     >
+     <Icon name='ios-globe-outline' />
+      </Button>,
      tabBarLabel: 'Jobs',
      tabBarIcon: ({ tintcolor }) => (
-       <Image
-        source={require('../images/briefcaseicon.png')}
-        style={{width: 22, height: 22}}>
-       </Image>
+      <Icon
+      name='ios-briefcase-outline'
+      color={ tintcolor} />
      )
    }
 
@@ -57,17 +63,22 @@
      return (
        <Container style={styles.containerStyle}>
         <Content>
-        <Image source={require('../images/jcjobsbanner.png')} style={{ height: 180, width: null }}></Image>
-        <Content style={{ backgroundColor: '#f8f6f6'}}>
-          <Text style={styles.colorHeader}>Trending<Text style={styles.bigHeader}> Jobs</Text> </Text>
-          <Text style={{fontWeight: '800', color: '#008542', paddingLeft: 15}}>________</Text>
+        <Image source={require('../images/jobsBanner.png')} style={{ height: 155, width: null }}></Image>
+        <Content>
+        <Card>
+          <CardItem style={{ borderLeftColor: '#3e9876', borderLeftWidth: 4, borderRightColor: '#3e9876', borderRightWidth: 4}}>
+            <Body>
+              <Text style={{ fontSize: 22, fontWeight: '800'}}><Icon name='md-trending-up' style={{ fontSize: 22, color: '#4d7358'}}/> Trending Jobs</Text>
+            </Body>
+          </CardItem>
+        </Card>
         </Content>
          <ListView
            dataSource={this.state.dataSource}
            renderRow={(rowData) => {
              const {uri} = rowData;
              return (
-               <Content>
+               <Content style={{ borderLeftColor: '#3e9876', borderLeftWidth: 3}}>
                 <List style={{ backgroundColor: '#FFFFFF'}}>
                   <ListItem>
                     <Left>
@@ -77,10 +88,10 @@
                           {rowData.positionTitle}
                         </Text>
                         <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.companyNameStyle}>
-                          {rowData.companyName}
+                          <Icon name='ios-at-outline' style={{ fontSize: 10}}/> {rowData.companyName}
                         </Text>
                         <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.jobLocationStyle}>
-                          {rowData.jobLocation}
+                          <Icon name='ios-pin-outline' style={{ fontSize: 10, color: '#878787'}}/> {rowData.jobLocation}
                         </Text>
                       </Body>
                     </Left>
@@ -105,12 +116,14 @@
     fontWeight: '800',
     paddingTop: 10,
     paddingLeft: 15,
+    paddingBottom: 15,
   },
   colorHeader: {
     fontSize: 18,
     fontWeight: '800',
     paddingTop: 10,
     paddingLeft: 15,
+    paddingBottom: 15,
     color: '#008542',
   },
   containerStyle: {

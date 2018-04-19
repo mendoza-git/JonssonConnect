@@ -4,9 +4,9 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, AsyncStorage, Image, ListView, FlatList, StyleSheet, View } from 'react-native';
+ import { ActivityIndicator, AsyncStorage, Image, ListView, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
- import { Container, Header, Content, Card, CardItem, Icon, Thumbnail, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
+ import { Container, Header, Content, Card, CardItem, Thumbnail, Icon, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import ComputerScience from './tabs/ComputerScience'
  import Home from './tabs/Home'
  import Jobs from './tabs/Jobs'
@@ -17,6 +17,7 @@
  import JobsDetails from './tabs/JobsDetails'
  import ArticleDetails from './tabs/ArticleDetails'
 
+
  import * as firebase from 'firebase';
 
  export const HomeFeedStack = StackNavigator({
@@ -24,9 +25,9 @@
      screen: Home,
      navigationOptions:({navigation}) => ({
       title: "News Feed",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#f8f6f6'},
-      headerTitleStyle: { fontSize: 18, fontWeight: '800' },
-      header: null,
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#ffffff', borderBottomWidth: 1},
+      headerTitleStyle: { fontSize: 18, fontWeight: '100'},
+      //headerRight: <Button transparent onPress={() => navigation.navigate('Login')}><Icon name='ios-log-out' /></Button>
     })
    },
    ArticleDetails: {screen: ArticleDetails},
@@ -37,8 +38,8 @@
      screen: Events,
      navigationOptions:({navigation}) => ({
       title: "Events",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#f8f6f6'},
-      headerTitleStyle: { fontSize: 18, fontWeight: '800' },
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#ffffff', borderBottomWidth: 1},
+      headerTitleStyle: { fontSize: 18, fontWeight: '100' },
     })
    },
    EventDetails: {screen: EventDetails},
@@ -49,8 +50,8 @@
      screen: Jobs,
      navigationOptions:({navigation}) => ({
       title: "Job Listings",
-      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#f8f6f6'},
-      headerTitleStyle: { fontSize: 18, fontWeight: '800' },
+      headerStyle: { paddingRight: 10, paddingLeft: 10, backgroundColor: '#ffffff', borderBottomWidth: 1},
+      headerTitleStyle: { fontSize: 18, fontWeight: '100' },
     })
    },
    JobsDetails: {screen: JobsDetails},
@@ -64,7 +65,7 @@
   }, {
    tabBarPosition : 'bottom',
    tabBarOptions : {
-     activeTintColor: '#104E8B',
+     activeTintColor: '#3e9876',
      activeBackgroundColor: '#ffffff',
      inactiveBackgroundColor: '#ffffff',
      inactiveTintColor: '#B7C3D0',
@@ -79,8 +80,8 @@
     })},
    AppScreenNavigator:{screen: AppScreenNavigator,
     navigationOptions:({navigation}) => ({
-    header: null})
-   // navigationOptions:{ header:{ visible:false },
+      gesturesEnabled: false,
+      header: null})
  }});
 
  AppScreenNavigator.navigationOptions = {

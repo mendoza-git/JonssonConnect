@@ -96,7 +96,7 @@ export default class Login extends React.Component {
 
   async componentWillMount() {
     let LOGIN_TOKEN = await AsyncStorage.getItem('LOGIN_TOKEN');
-    if (LOGIN_TOKEN == null){
+    if (LOGIN_TOKEN == null) {
        // DO nothing and continue login process
     }
     else {
