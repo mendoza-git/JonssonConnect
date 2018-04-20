@@ -27,6 +27,7 @@
        userID: await AsyncStorage.getItem('userID'),
        summary: await AsyncStorage.getItem('summary'),
        userPhoto: await AsyncStorage.getItem('userPhoto'),
+       picture: await AsyncStorage.getItem('pictureurls'),
        token: await AsyncStorage.getItem('token'),
        checker: await AsyncStorage.getItem('checker'),
        isLoading: false

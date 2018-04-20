@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View, Linking, TextInput, ImageBackground } from 'react-native';
+ import { ActivityIndicator, Image, ListView, FlatList, StyleSheet, View, Linking, RefreshControl, TextInput, ImageBackground } from 'react-native';
  import { TabNavigator, StackNavigator } from "react-navigation";
  import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Icon, Item, Input, Text, Title, Button, Left, Body, Right, H1, H2, H3 } from 'native-base';
  import * as firebase from 'firebase';
@@ -14,7 +14,8 @@
    constructor(props) {
      super(props);
      this.state = {
-       isLoading: true
+       isLoading: true,
+       refreshing: false,
      }
    }
 
@@ -34,7 +35,28 @@
       .catch((error) => {
         console.error(error);
       });
-  }
+    }
+
+    _onRefresh() {
+      this.setState({refreshing: true});
+      return fetch('https://jonssonconnect.firebaseio.com/.json')
+       .then((response) => response.json())
+       .then((responseJson) => {
+         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+         this.setState({
+           isLoading: false,
+           dataSource: ds.cloneWithRows(responseJson.Jobs),
+           refreshing: false,
+         }, function() {
+           });
+       })
+       .catch((error) => {
+         this.setState({
+           isLoading: false,
+           networkFailed: true,
+         })
+       });
+    }
 
    static navigationOptions = {
      headerRight:
@@ -62,45 +84,52 @@
      }
      return (
        <Container style={styles.containerStyle}>
-        <Content>
-        <Image source={require('../images/jobsBanner.png')} style={{ height: 155, width: null }}></Image>
-        <Content>
-        <Card>
-          <CardItem style={{ borderLeftColor: '#3e9876', borderLeftWidth: 4, borderRightColor: '#3e9876', borderRightWidth: 4}}>
-            <Body>
-              <Text style={{ fontSize: 22, fontWeight: '800'}}><Icon name='md-trending-up' style={{ fontSize: 22, color: '#4d7358'}}/> Trending Jobs</Text>
-            </Body>
-          </CardItem>
-        </Card>
-        </Content>
-         <ListView
-           dataSource={this.state.dataSource}
-           renderRow={(rowData) => {
-             const {uri} = rowData;
-             return (
-               <Content style={{ borderLeftColor: '#3e9876', borderLeftWidth: 3}}>
-                <List style={{ backgroundColor: '#FFFFFF'}}>
-                  <ListItem>
-                    <Left>
-                      <Thumbnail square source={{uri: rowData.companyImageURL}} />
-                      <Body>
-                        <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.positionTitleStyle}>
-                          {rowData.positionTitle}
-                        </Text>
-                        <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.companyNameStyle}>
-                          <Icon name='ios-at-outline' style={{ fontSize: 10}}/> {rowData.companyName}
-                        </Text>
-                        <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.jobLocationStyle}>
-                          <Icon name='ios-pin-outline' style={{ fontSize: 10, color: '#878787'}}/> {rowData.jobLocation}
-                        </Text>
-                      </Body>
-                    </Left>
-                  </ListItem>
-                </List>
-              </Content>
-             )
-           }}
-         />
+        <Content
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh.bind(this)}
+            />
+          }
+        >
+          <Image source={require('../images/jobsBanner.png')} style={{ height: 155, width: null }}></Image>
+          <Content>
+          <Card>
+            <CardItem style={{ borderLeftColor: '#3e9876', borderLeftWidth: 4, borderRightColor: '#3e9876', borderRightWidth: 4}}>
+              <Body>
+                <Text style={{ fontSize: 22, fontWeight: '800'}}><Icon name='md-trending-up' style={{ fontSize: 22, color: '#4d7358'}}/> Trending Jobs</Text>
+              </Body>
+            </CardItem>
+          </Card>
+          </Content>
+           <ListView
+             dataSource={this.state.dataSource}
+             renderRow={(rowData) => {
+               const {uri} = rowData;
+               return (
+                 <Content style={{ borderLeftColor: '#3e9876', borderLeftWidth: 3}}>
+                  <List style={{ backgroundColor: '#FFFFFF'}}>
+                    <ListItem>
+                      <Left>
+                        <Thumbnail square source={{uri: rowData.companyImageURL}} />
+                        <Body>
+                          <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.positionTitleStyle}>
+                            {rowData.positionTitle}
+                          </Text>
+                          <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.companyNameStyle}>
+                            <Icon name='ios-at-outline' style={{ fontSize: 10}}/> {rowData.companyName}
+                          </Text>
+                          <Text onPress={() => this.props.navigation.navigate("JobsDetails", {rowData})} style={styles.jobLocationStyle}>
+                            <Icon name='ios-pin-outline' style={{ fontSize: 10, color: '#878787'}}/> {rowData.jobLocation}
+                          </Text>
+                        </Body>
+                      </Left>
+                    </ListItem>
+                  </List>
+                </Content>
+               )
+             }}
+           />
          </Content>
        </Container>
      )
