@@ -59,6 +59,10 @@
 		EBBA42972087E994000B7AA3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBBA42862087E977000B7AA3 /* Octicons.ttf */; };
 		EBBA42982087E994000B7AA3 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBBA42852087E977000B7AA3 /* SimpleLineIcons.ttf */; };
 		EBBA42992087E994000B7AA3 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBBA42892087E978000B7AA3 /* Zocial.ttf */; };
+		EBC86C052089D0A2005E90EF /* Temoc_Secondary_BW.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC86C042089D0A2005E90EF /* Temoc_Secondary_BW.png */; };
+		EBC86C072089D142005E90EF /* UTDmono_ECS_stacked_black_RGB.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC86C062089D142005E90EF /* UTDmono_ECS_stacked_black_RGB.png */; };
+		EBC86C092089D22E005E90EF /* Temoc.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC86C082089D22E005E90EF /* Temoc.png */; };
+		EBC86C102089D918005E90EF /* Temoc_All.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC86C0F2089D918005E90EF /* Temoc_All.png */; };
 		F07A2CE41D4847548DB1C576 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D3F99ED83A42A3B7813F84 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FEE4120844A14632BBAF2E47 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E193B5B5ACA2448B9CF91C41 /* Foundation.ttf */; };
 /* End PBXBuildFile section */
@@ -418,6 +422,15 @@
 		EBBA428C2087E978000B7AA3 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		EBBA428D2087E979000B7AA3 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		EBBA428E2087E979000B7AA3 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		EBC86C042089D0A2005E90EF /* Temoc_Secondary_BW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Temoc_Secondary_BW.png; sourceTree = "<group>"; };
+		EBC86C062089D142005E90EF /* UTDmono_ECS_stacked_black_RGB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UTDmono_ECS_stacked_black_RGB.png; sourceTree = "<group>"; };
+		EBC86C082089D22E005E90EF /* Temoc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Temoc.png; sourceTree = "<group>"; };
+		EBC86C0B2089D5E1005E90EF /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
+		EBC86C0C2089D614005E90EF /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Thin.ttf"; path = "../android/app/src/main/assets/fonts/Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		EBC86C0D2089D639005E90EF /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Light.ttf"; path = "../android/app/src/main/assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
+		EBC86C0E2089D6E1005E90EF /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		EBC86C0F2089D918005E90EF /* Temoc_All.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Temoc_All.png; sourceTree = "<group>"; };
+		EBC86C112089E041005E90EF /* product-sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "product-sans.ttf"; sourceTree = "<group>"; };
 		EDDCCAB6800C4DB3A2CBA88C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		FA1FB67F189B4055AD88D69A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -563,6 +576,7 @@
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				EBC86BDA2089D05C005E90EF /* Images */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -607,8 +621,13 @@
 				EBBA428B2087E978000B7AA3 /* MaterialCommunityIcons.ttf */,
 				EBBA42842087E977000B7AA3 /* MaterialIcons.ttf */,
 				EBBA42862087E977000B7AA3 /* Octicons.ttf */,
+				EBC86C0E2089D6E1005E90EF /* Roboto-Regular.ttf */,
 				EBBA42852087E977000B7AA3 /* SimpleLineIcons.ttf */,
 				EBBA42892087E978000B7AA3 /* Zocial.ttf */,
+				EBC86C112089E041005E90EF /* product-sans.ttf */,
+				EBC86C0D2089D639005E90EF /* Roboto-Light.ttf */,
+				EBC86C0C2089D614005E90EF /* Roboto-Thin.ttf */,
+				EBC86C0B2089D5E1005E90EF /* SourceSansPro-Regular.ttf */,
 				57F4D57379F141048D120C42 /* Ionicons.ttf */,
 				E193B5B5ACA2448B9CF91C41 /* Foundation.ttf */,
 				8D24E8F46C7B4F179558B68B /* MaterialCommunityIcons.ttf */,
@@ -731,6 +750,17 @@
 				EBB13B08202113D100DAF714 /* libRNVectorIcons.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		EBC86BDA2089D05C005E90EF /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				EBC86C0F2089D918005E90EF /* Temoc_All.png */,
+				EBC86C082089D22E005E90EF /* Temoc.png */,
+				EBC86C062089D142005E90EF /* UTDmono_ECS_stacked_black_RGB.png */,
+				EBC86C042089D0A2005E90EF /* Temoc_Secondary_BW.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		EBD73447204E3DFF00E0AA21 /* Products */ = {
@@ -1244,10 +1274,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBC86C102089D918005E90EF /* Temoc_All.png in Resources */,
 				EBBA428F2087E994000B7AA3 /* Entypo.ttf in Resources */,
 				EBBA42902087E994000B7AA3 /* EvilIcons.ttf in Resources */,
 				EBBA42912087E994000B7AA3 /* Feather.ttf in Resources */,
 				EBBA42922087E994000B7AA3 /* FontAwesome.ttf in Resources */,
+				EBC86C072089D142005E90EF /* UTDmono_ECS_stacked_black_RGB.png in Resources */,
 				EBBA42932087E994000B7AA3 /* Foundation copy.ttf in Resources */,
 				EBBA42942087E994000B7AA3 /* Ionicons.ttf in Resources */,
 				EBBA42952087E994000B7AA3 /* MaterialCommunityIcons.ttf in Resources */,
@@ -1257,12 +1289,14 @@
 				EBBA42992087E994000B7AA3 /* Zocial.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				EBC86C092089D22E005E90EF /* Temoc.png in Resources */,
 				AD86B1D64A654399B1E25C45 /* Ionicons.ttf in Resources */,
 				FEE4120844A14632BBAF2E47 /* Foundation.ttf in Resources */,
 				881C1CAED1094098AC80DC61 /* MaterialCommunityIcons.ttf in Resources */,
 				37AF63C87CD94F1386175A14 /* MaterialIcons.ttf in Resources */,
 				B6D3E5BD031A4DA9A305E45A /* Octicons.ttf in Resources */,
 				4008B031F4F64FF4BB51E2D9 /* SimpleLineIcons.ttf in Resources */,
+				EBC86C052089D0A2005E90EF /* Temoc_Secondary_BW.png in Resources */,
 				E069A4003BE84EDC8918DB24 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -115,6 +115,10 @@ export default class Login extends React.Component {
       'summary',
       'picture-url',
       'id',
+      'headline',
+      'location:(name)',
+      'picture-urls::(original)',
+      'industry',
     ]
 
     const response = await fetch(`${baseApi}~:(${params.join(',')})?format=json`, {
@@ -138,9 +142,10 @@ export default class Login extends React.Component {
     AsyncStorage.setItem('lastName', this.state.lastName),
     AsyncStorage.setItem('firstName', this.state.firstName),
     AsyncStorage.setItem('email', this.state.emailAddress),
-    //AsyncStorage.setItem('summary', this.state.summary),
-    //AsyncStorage.setItem('userPhoto', this.state.pictureUrl),
+    AsyncStorage.setItem('headline', this.state.headline),
     AsyncStorage.setItem('userID', this.state.id),
+    AsyncStorage.setItem('location', JSON.stringify(this.state.location)),
+    AsyncStorage.setItem('industry', this.state.industry),
     AsyncStorage.setItem('LOGIN_TOKEN', "loggedIn"),
     AsyncStorage.getItem('loggedInStatus',
     (value) => {
@@ -163,7 +168,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    const { emailAddress, pictureUrl, refreshing, firstName, lastName, summary, id, } = this.state;
+    const { emailAddress, pictureUrl, refreshing, firstName, lastName, summary, id, headline, location } = this.state;
     if (this.state.loggedInStatus === 'loggedIn') {
       this.props.navigation.navigate("HomeFeedStack")
     }
@@ -174,8 +179,8 @@ export default class Login extends React.Component {
           style={styles.backdrop}
           blurRadius={1}>
           <View style={styles.backdropView}>
-            <Image source={{ uri: 'https://www.utdallas.edu/brand/files/Temoc_Orange.png'}} style={{ height: 180, width: 150, paddingTop: 100}}></Image>
-            <Text style={{ fontSize: 32, fontWeight: '800'}}>Jonsson <Text style={{ fontSize: 32, fontWeight: '100'}}>Connect </Text></Text>
+            <Image source={require('../images/Temoc_Orange.png')} style={{ height: 180, width: 150, paddingTop: 100}}></Image>
+            <Text style={{ fontSize: 32, fontWeight: '800', fontFamily: 'System'}}>Jonsson <Text style={{ fontSize: 32, fontWeight: '200'}}>Connect </Text></Text>
             <Text style={{ fontSize: 22, fontWeight: '200', paddingTop: 20}}>Begin exploring oppotunities only offered by the Jonsson School. </Text>
             <Text style={{ fontSize: 8, position: "absolute", bottom: -150}}></Text>
           </View>
