@@ -84,6 +84,9 @@
          </View>
        );
      }
+     const monthNames = ["January", "February", "March", "April", "May", "June",
+       "July", "August", "September", "October", "November", "December"
+     ]
      return (
        <Container style={styles.containerStyle}>
         <Content
@@ -113,7 +116,9 @@
                     <ListItem>
                       <Body>
                         <Text style={{fontWeight: '800', fontSize: 16}}><Icon name='ios-ionitron-outline' style={{ fontSize: 16, color: '#5d5d5d'}}/> {rowData.eventTitle}</Text>
-                        <Text style={{fontWeight: '200', fontSize: 12, paddingTop: 5}}><Icon name='ios-calendar-outline' style={{ fontSize: 12, color: '#5d5d5d'}}/> {(Date(rowData.eventDate))}</Text>
+                        <Text style={{fontWeight: '200', fontSize: 12, paddingTop: 5}}>
+                          <Icon name='ios-calendar-outline' style={{ fontSize: 12, color: '#5d5d5d'}}/> {monthNames[parseInt(rowData.eventDate.toString().substr(5, 5).substr(0, 2)) - 1]} {parseInt(rowData.eventDate.toString().substr(8, 2))}, {rowData.eventDate.toString().substr(0, 4)}
+                        </Text>
                         <Text style={{fontWeight: '100', fontSize: 12, color: '#757575', paddingTop: 5}}><Icon name='ios-pin-outline' style={{ fontSize: 12, color: '#5d5d5d'}}/> {rowData.eventLocation}</Text>
                         <Text style={{fontWeight: '800', fontSize: 22}}></Text>
                         <TouchableHighlight
